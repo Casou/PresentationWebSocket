@@ -1,0 +1,20 @@
+#solution_popup h2 {
+    margin-bottom : 50px;
+}
+
+.solution_popup__h2_strategie { margin-top : 20px; }
+.solution_popup__h2_strategie > div { display : flex; }
+.solution_popup__h2_strategie > div > p { flex : 1; font-size : 40px; }
+.solution_popup__h2_strategie:last-of-type {
+    margin-top : 20px;
+    color : blue;
+}
+
+#solution_popup__synchronisation h3 {
+    margin : 30px 0;
+    font-size : 50px;
+}
+
+#solution_popup__mais img {
+    height: 600px;
+}

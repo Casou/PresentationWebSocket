@@ -1,0 +1,90 @@
+#intro h2 {
+    color : #3d3d3d;
+    margin-top : 20px;
+}
+
+#intro video {
+    margin-top : 30px;
+    height : 350px;
+}
+
+#presentation__avatar {
+    height : 300px;
+    border-radius: 70px 0;
+    border: 14px solid rgba(200, 200, 200, 0.5);
+}
+
+#presentation__description {
+    margin-top : 50px;
+    display : flex;
+}
+
+#presentation__description > div {
+    flex : 1;
+    height : 100px;
+    line-height : 100px;
+}
+
+#presentation__job {
+    line-height : 50px !important;
+}
+
+#presentation__twitter > * {
+    display: inline-block;
+}
+
+#presentation__twitter img {
+    height: 50px;
+    margin : 0 0 10px 0;
+    border : none;
+    vertical-align: middle;
+}
+
+#presentation__twitter span {
+    height: 100px;
+}
+
+#presentation__malentendant {
+    max-width : 200px;
+}
+#presentation__malentendant img {
+    height: 80px;
+    vertical-align: middle;
+}
+
+#presentation__logo_proxiad {
+    height : 50px;
+    margin-top : 70px;
+}
+
+
+#intro_pourquoi__personnages_1 {
+    display : flex;
+    margin-top : 150px;
+}
+
+
+#intro_pourquoi__personnages_1 > div {
+    flex : 1;
+}
+
+#intro_pourquoi__personnages_2 {
+    display: inline-block;
+    position: relative;
+    margin-top : 100px !important;
+    width : 700px;
+    height : 450px;
+}
+
+#intro_pourquoi__personnages__bg {
+
+}
+
+.intro_pourquoi__personnages__bulle {
+    position : absolute;
+}
+
+#intro_pourquoi__personnages__bulle_1 { left : 50%; top : 0; margin-left: -70px; }
+#intro_pourquoi__personnages__bulle_2 { left : 50%; top : 85px; margin-left: -80px; }
+#intro_pourquoi__personnages__bulle_3 { left : 50%; top : 170px; margin-left: -90px; }
+

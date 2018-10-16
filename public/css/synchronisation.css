@@ -1,0 +1,28 @@
+#synchronisation_1__illustration img,
+#synchronisation_2__illustration img,
+#synchronisation_3__illustration img {
+    position: absolute;
+    left: 50%;
+    width: 600px;
+    margin-left: -400px;
+    margin-top : 50px;
+}
+
+#synchronisation_fail__illustration {
+    display : flex;
+}
+#synchronisation_fail__illustration .synchronisation__solution {
+    flex : 1;
+    padding : 25px;
+    margin-top : 50px;
+}
+#synchronisation_fail__illustration .synchronisation__solution figure {
+    position : relative;
+}
+#synchronisation_fail__illustration .synchronisation__solution figure img {
+    position: absolute;
+    top : 0;
+    left : 0;
+    margin-top : 30px;
+    max-width: 100%;
+}

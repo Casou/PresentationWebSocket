@@ -1,0 +1,120 @@
+#communication h1,
+#communication_caniuse h1,
+#communication_ajax h1,
+#communication_pro_cons h1 {
+    font-size: 40px !important;
+}
+
+#communication h2,
+#communication_ajax h2,
+#communication_pro_cons h2 {
+    font-size: 40px !important;
+    margin: 20px 0 50px 0;
+}
+#communication_caniuse h2 {
+    font-size: 40px !important;
+    margin: 10px 0 10px 0;
+}
+
+#communication img,
+#communication_ajax img {
+    height: 400px;
+    object-fit: contain;
+}
+
+#communication_caniuse ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+#communication_caniuse li {
+    flex: 1 0 33%;
+    height : 135px;
+    text-align : center;
+    list-style-type : none;
+    font-size : 28px !important;
+    margin-top : 20px;
+}
+
+#communication_caniuse figure {
+    display: inline-block;
+    width: 100%;
+}
+#communication_caniuse img {
+    height : 85px;
+}
+#communication_caniuse span {
+    display : inline-block;
+    height : 50px;
+    line-height : 50px;
+}
+
+#websocket_api table {
+    margin: 20px auto;
+}
+
+#websocket_api table th,
+#websocket_api table td {
+    padding: 8px 40px 8px 40px;
+}
+
+#websocket_switch {
+    width: 1200px;
+    margin-left: -125px;
+}
+
+#websocket_switch h1 {
+    margin-bottom: 30px;
+}
+
+#websocket_switch > div {
+    display: flex;
+}
+
+#websocket_switch > div > div#websocket_switch__client {
+    flex: 1;
+}
+
+#websocket_switch > div > div#websocket_switch__client > h2:nth-of-type(2) {
+    margin-top: 38px;
+}
+
+#websocket_switch > div > div#websocket_switch__serveur {
+    flex: 1.2;
+}
+
+#websocket_switch pre {
+    margin: 5px auto !important;
+}
+
+#socketio_methods p,
+#socketio_compatibility p {
+    margin-top: 40px;
+}
+
+#socketio_methods li,
+#socketio_compatibility li {
+    margin: 20px 0;
+}
+
+#code_example_php h1 {
+    margin-bottom: 50px;
+}
+
+#code_example_php > div {
+    width: 1400px;
+    margin-left: -225px;
+}
+
+#code_example_php > div {
+    display: flex;
+}
+
+#code_example_php > div > div {
+    flex: 1;
+}
+
+#code_example_php pre {
+    margin: 5px auto !important;
+    width: 95%;
+}
+

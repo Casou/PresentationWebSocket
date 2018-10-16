@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Présentation WebSocket - Basile Parent</title>
+
+    <meta name="description" content="Présentation Websocket">
+    <meta name="author" content="Basile Parent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="/public/reveal/css/reveal.css">
+    <link rel="stylesheet" href="/public/reveal/lib/css/zenburn.css">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/intro.css">
+    <link rel="stylesheet" href="/public/css/scene.css">
+    <link rel="stylesheet" href="/public/css/projet.css">
+    <link rel="stylesheet" href="/public/css/websocket.css">
+    <link rel="stylesheet" href="/public/css/synchronisation.css">
+    <link rel="stylesheet" href="/public/css/popup.css">
+    <link rel="stylesheet" href="/public/css/spring-boot-sockjs.css">
+    <link rel="stylesheet" href="/public/css/demo.css">
+    <link rel="stylesheet" href="/public/css/resultat.css">
+    <link rel="stylesheet" href="/public/css/sockjs.css">
+    <link rel="stylesheet" href="/public/css/merci.css">
+</head>
+<body data-background-iframe="/public/images/bg_ProxiAD_mini.png">
+    <div class="reveal">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section id="intro">
+                <h1>Faire communiquer 2 navigateurs</h1>
+                <h2>Présentation sur les Websockets et Spring Boot avec une pincée d'IOT</h2>
+
+                <video autoplay="true" loop>
+                    <source src="/public/images/websocket_animation.mp4" type="video/mp4" />
+                </video>
+            </section>
+
+            <section id="presentation">
+                <img src="/public/images/photo.jpg" id="presentation__avatar" />
+                <h1>Basile Parent</h1>
+                <div id="presentation__description">
+                    <div id="presentation__job">Développeur Web<br/>Scrum Master</div>
+                    <div id="presentation__twitter">
+                        <img src="/public/images/twitter.png" />
+                        <span>@basileparent</span>
+                    </div>
+                    <div id="presentation__malentendant"><img src="/public/images/malentendant.png" /></div>
+                </div>
+                <img id="presentation__logo_proxiad" src="/public/images/logo_ProxiAD.png" />
+            </section>
+
+            <section>
+                <section id="intro_pourquoi">
+                    <h1>Pourquoi faire ?</h1>
+                    <div id="intro_pourquoi__personnages_1">
+                        <div class="fragment"><img src="/public/images/illustrations/boss.png" /></div>
+                        <div class="fragment"><img src="/public/images/illustrations/demande-pote.png" /></div>
+                    </div>
+
+                    <aside class="notes" data-markdown>
+                        Mes notes sur ce slide
+                    </aside>
+                </section>
+
+                <section id="intro_pourquoi_2">
+                    <h1>Pourquoi faire ?</h1>
+                    <div id="intro_pourquoi__personnages_2">
+                        <img src="/public/images/illustrations/demande-pote-courir.png" id="intro_pourquoi__personnages__bg" />
+                        <img src="/public/images/illustrations/demande-pote-courir-bulle-1.png" id="intro_pourquoi__personnages__bulle_1" class="intro_pourquoi__personnages__bulle fragment" />
+                        <img src="/public/images/illustrations/demande-pote-courir-bulle-2.png" id="intro_pourquoi__personnages__bulle_2" class="intro_pourquoi__personnages__bulle fragment" />
+                        <img src="/public/images/illustrations/demande-pote-courir-bulle-3.png" id="intro_pourquoi__personnages__bulle_3" class="intro_pourquoi__personnages__bulle fragment" />
+                    </div>
+                </section>
+            </section>
+
+            <section id="projet_ppt">
+                <img src="/public/images/illustrations/impro-diapo-ppt.jpg" />
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <ul style="margin : 0; padding : 0;">
+                            <li>Président d’une asso d’impro (le GIT) dans laquelle je donne un coup de main de temps en temps</li>
+                            <li>Ils lançaient à ce moment un nouveau concept : l’impro diapo.</li>
+                            <li>Ils peuvent ou non avoir un contexte imposé ou une contrainte comme par exemple reproduire à l’identique le cliché projeté à un moment de l’impro.</li>
+                            <li>Concept créé il y a 2 ans à peu près mais il leur manquait cruellement un outil fiable et facile à utiliser.</li>
+                            <li>Il ne connaissait pas l’effet « démo ».</li>
+                            <li>Plein de liens morts, photos qui se chargeaient au ralenti, réactivité très moyenne, plein de petits détails inesthétiques comme la souris qui se baladent sur le projecteur par exemple ou le mec derrière l’ordinateur qui crie « Merde ça marche pas ».</li>
+                        </ul>
+                    </div>
+                </aside>
+            </section>
+
+            <section id="scene_impro">
+                <h1>Le projet</h1>
+                <div id="scene_impro__illustration">
+                    <img src="/public/images/illustrations/regie-projo-bg.png" id="scene_impro__illustration__bg" />
+                    <img src="/public/images/illustrations/regie-projo-step-1.png" id="intro_pourquoi__personnages__step_1" class="fragment" />
+                    <img src="/public/images/illustrations/regie-projo-step-2.png" id="intro_pourquoi__personnages__step_2" class="fragment" />
+                </div>
+            </section>
+
+            <section>
+                <section id="projet_prerequis">
+                    <h1>Prérequis</h1>
+                    <ul>
+                        <li>2 interfaces distinctes : régie - spectateur</li>
+                        <li>Les 2 interfaces communiquent en temps réel</li>
+                        <li>Facilement paramétrable (back-office)</li>
+                        <li>Avoir un enchaînement d’écrans précis : <br/>intro, liste des catégories, catégorie, remerciements, prochaines dates</li>
+                    </ul>
+                </section>
+
+                <section id="projet_prerequis_supplémentaires">
+                    <h1>Prérequis</h1>
+                    <ul>
+                        <li>Sessions conservées</li>
+                        <li>Facilement déployable sur n’importe quel PC portable Windows</li>
+                        <li>Quelques idées d’évolutions :
+                            <ul>
+                                <li>Faire tourner sur un Raspberry</li>
+                                <li>Le présentateur dirige tout depuis une tablette</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            A ces contraintes demandées par le « client » se sont rajoutées des contraintes que je me suis moi même
+                            imposées :
+                            <ul style="margin : 0; padding : 0;">
+                                <li>En cas d’imprévu (perte de connexion, portable qui plante), il faut que les sessions soient conservées
+                                    pour qu’on ait pas à recommencer l’impro du début (faire défiler les séquences, etc.)</li>
+                                <li>il faut que l’application soit facilement déployable sur n’importe quel PC portable Windows (sans l’aide
+                                    d’un informaticien, avec juste une notice d’installation simple)</li>
+                                <li>Et puis j’avais quelques idées d’évolutions aussi : héberger tout le nécessaire sur un Raspberry pour
+                                    n’avoir aucune installation à faire, donner une tablette au présentateur pour qu’il dirige tout, etc.</li>
+                            </ul>
+                        </div>
+                    </aside>
+                </section>
+            </section>
+
+            <section id="projet_technologies">
+                <h1>Les technologies</h1>
+
+                <main>
+                    <div id="projet_technologies__front" class="fragment">
+                        <h2>Front</h2>
+                        <img src="/public/images/icon_js.png" />
+                        <img src="/public/images/icon_jquery.png" />
+                    </div>
+
+                    <div id="projet_technologies__back" class="fragment">
+                        <h2>Back</h2>
+                        <img src="/public/images/icon_php.png" />
+                        <img src="/public/images/icon_mysql.png" />
+                    </div>
+                </main>
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        Et oui, j’ai eu un page free pendant très longtemps, j’ai donc beaucoup exploré ce domaine et je me suis
+                        dit, en terme de déploiement, on installe WAMP et hop, c’est fini. Sauf que, ceux qui l’ont déjà utilisé le
+                        savent aussi bien que moi, ce n’est pas aussi simple que ça mais nous y reviendrons.
+                    </div>
+                </aside>
+            </section>
+
+            <section>
+                <section id="communication_ajax">
+                    <h1>La communication en temps réel</h1>
+                    <h2>Ajax Polling</h2>
+
+                    <main>
+                        <img src="/public/images/ajax_polling.gif" />
+                    </main>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                        </div>
+                    </aside>
+                </section>
+
+
+                <section id="communication">
+                    <h1>La communication en temps réel</h1>
+                    <h2>Les WebSockets</h2>
+
+                    <main>
+                        <img src="/public/images/websockets-diagram.png" />
+                    </main>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                            Le principe d’une WebSocket, comme son nom l’indique c’est une connexion par socket qui est utilisé
+                            par les navigateurs Web. Jusque là ça va.
+                            Pour distribuer les messages on a besoin d’un serveur. Le serveur et les clients communiquent de la façon
+                            suivante
+                            </p>
+                            <p>
+                            Le serveur et le client s’échange des amabilités via des headers HTTP histoire de se connaître l’un l’autre
+                            et après les communications peuvent vivre dans les 2 sens jusqu’à ce que l’un des 2 coupe la connexion.
+                            Donc concrètement, le client va venir s’abonner à un serveur et lui envoyer des messages et recevoir des
+                            messages depuis d’autres clients ou depuis le serveur lui même. On peut très bien envisager un scheduler
+                            qui envoie un statut particulier à tous les clients toutes les 5 secondes par exemple.
+                            </p>
+                        </div>
+                    </aside>
+                </section>
+
+
+                <section id="communication_caniuse">
+                    <h1>La communication en temps réel</h1>
+                    <h2>Les WebSockets</h2>
+
+                    <main>
+                        <ul>
+                            <li><figure><img src="/public/images/logos/chrome.png" /></figure><span>Chrome 16 + (2011)</span></li>
+                            <li><figure><img src="/public/images/logos/firefox.png" /></figure><span>Firefox 11 + (2012)</span></li>
+                            <li><figure><img src="/public/images/logos/ie.png" /></figure><span>IE 10+ (2012)</span></li>
+                            <li><figure><img src="/public/images/logos/edge.png" /></figure><span>Edge 12 (2015)</span></li>
+                            <li><figure><img src="/public/images/logos/safari.png" /></figure><span>Safari 7 + (2013)</span></li>
+                            <li><figure><img src="/public/images/logos/opera.png" /></figure><span>Opera 12.1 + (2012)</span></li>
+                            <li><figure><img src="/public/images/logos/ios.png" /></figure><span>iOS Safari 6.0 + (2013)</span></li>
+                            <li><figure><img src="/public/images/logos/android.png" /></figure><span>Android 4.4 + (2013)</span></li>
+                            <li><figure><img src="/public/images/logos/blackberry.png" /></figure><span>Blackberry 7 + (2012)</span></li>
+                        </ul>
+                    </main>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="communication_pro_cons">
+                    <h1>La communication en temps réel</h1>
+                    <h2>Les WebSockets</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Avantages</th>
+                                <th>Inconvénients</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cross plateforme (Web, desktop, mobile)</td>
+                                <td>Pas de fonction de retour comme en Ajax</td>
+                            </tr>
+                            <tr>
+                                <td>Pas d'entête HTTP</td>
+                                <td>A besoin d'un serveur pour fonctionner</td>
+                            </tr>
+                            <tr>
+                                <td>Plus rapide que l'AJAX</td>
+                                <td>Besoin de réfléchir à sa "stratégie" de communication</td>
+                            </tr>
+                            <tr>
+                                <td>Le serveur connait ses clients actifs</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Compatible avec tous les navigateurs récents</td>
+                                <td>Compatible avec tous les navigateurs <span class="important">récents</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <p>Plus rapide que l'AJAX : pas d'entete HTTP, proche d'une communication TCP (sauf la connexion = HTTP)</p>
+                        <p>Qui dit serveur dit maintenance du serveur</p>
+                        <p>
+                            Bon, on a notre socle technologique alors maintenant, allons-y !
+                        </p>
+                    </div>
+                </aside>
+            </section>
+
+
+            <section id="communication_gif">
+                <img src="/public/images/allons-y.gif" />
+            </section>
+
+            <section>
+                <section id="websocket_api">
+                    <h1>API WebSocket</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Méthodes</th>
+                                <th>Événements</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>void send()</td>
+                                <td>onOpen</td>
+                            </tr>
+                            <tr>
+                                <td>void close()</td>
+                                <td>onMessage</td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td>onError</td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td>onClose</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+let socket = null;
+try {
+    socket = new WebSocket("ws://localhost");
+} catch (exception) {
+    console.error(exception);
+}
+
+socket.onerror = (error) => { console.error(error); };
+socket.onopen = (event) => {
+    console.log("Connexion établie.");
+
+    this.onclose = (event) => { console.log("Connexion terminé."); };
+    this.onmessage = (event) => { console.log("Message:", event.data); };
+
+    this.send("Hello world!");
+};
+                        </code></pre>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                L’API WebSocket a quand même un gros défaut selon moi : elle permet uniquement d’envoyer un
+                                message sous forme de chaîne de caractères (ou un objet JSON stringifié) au serveur sur lequel on est
+                                connecté, sans différenciation de type de message ou de finalité. Du coup, pour différencier le type
+                                d’action qu’on effectuer, on se retrouve soit à créer n connexions à n instances de serveur (impensable),
+                                soit à devoir coder une classe Message qui contient le type d’action afin de pouvoir trier avec un switch
+                                ce qui n’est pas très élégant.
+                            </p>
+                            <p>
+                                Mais comme je ne suis pas le seul à me dire ça, une librairie est sortie en 2015, elle s’appelle
+                                SockJS et permet d’envoyer un message sur un topic
+                            </p>
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="websocket_switch">
+                    <h1>API WebSocket</h1>
+
+                    <div>
+                        <div id="websocket_switch__client">
+                            <h2>Émetteur</h2>
+                            <pre><code class="hljs" data-trim contenteditable>websocket.send(JSON.stringify({
+    type: "message",
+    value: "Hello World!"
+}));
+                            </code></pre>
+                            <h2>Récepteur</h2>
+                            <pre><code class="hljs" data-trim contenteditable>socket.onopen = (event) => {
+  this.onmessage = (e) => {
+    const data = JSON.parse(e.data);
+    switch (data.type) {
+      case "message" :
+        // Do something
+        break;
+      [...]
+    }
+  };
+
+  this.send("Hello world!");
+};
+                            </code></pre>
+                        </div>
+                        <div id="websocket_switch__serveur">
+                            <h2>Serveur (NodeJS)</h2>
+                            <pre><code class="hljs" data-trim contenteditable>server.on("data", (client, dataString) => {
+  const data = JSON.parse(dataString);
+
+  switch (data.type) {
+     case "message" :
+        // Do something
+        break;
+     case "nextStep" :
+        // Do something
+        break;
+     [...]
+  }
+});
+                            </code></pre>
+                            <pre class="fragment"><code class="hljs" data-trim contenteditable>const callbacks = [];
+callbacks["message"] = messageCallbackFunction;
+callbacks["nextStep"] = nextStepCallbackFunction;
+
+server.on("data", (client, dataString) => {
+  const data = JSON.parse(dataString);
+  callbacks[data.type](data.value);
+});
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="socketio_methods">
+                    <h1>Socket IO</h1>
+                    <p>Résoud les problèmes de compatibilité navigateur via différentes méthodes : </p>
+                    <ul>
+                        <li>WebSocket</li>
+                        <li>Adobe Flash Socket</li>
+                        <li>AJAX long polling</li>
+                        <li>AJAX multipart streaming</li>
+                        <li>Forever Iframe</li>
+                        <li>JSONP Polling</li>
+                    </ul>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            S'interface plus facilement avec le serveur. Par exemple, Node a un module SocketIO qui permet de faire un serveur très rapidement.
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="socketio_compatibility">
+                    <h1>Socket IO</h1>
+                    <p>Navigateurs compatibles</p>
+                    <ul>
+                        <li>Internet Explorer 5.5+</li>
+                        <li>Safari 3+</li>
+                        <li>Google Chrome 4+</li>
+                        <li>Firefox 3+</li>
+                        <li>Opera 10.61+</li>
+                        <li>Safari sur iPhone et iPad</li>
+                        <li>Le navigateur Android</li>
+                    </ul>
+                </section>
+
+                <section id="socketio_code">
+                    <h1>Socket IO</h1>
+                    <pre><code class="hljs" data-trim contenteditable><script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io.connect('http://localhost:2021');
+
+    socket.on('message', message => {
+        alert('Le serveur a un message pour vous : ' + message);
+    });
+    socket.on('nextStep', message => {
+        alert('Go to next step');
+    });
+
+    socket.emit('message', 'Hello world!');
+    socket.emit('nextStep', '');
+</script>
+                    </code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h1>Le serveur PHP</h1>
+
+                <pre><code class="hljs" data-trim contenteditable>use Workerman\Worker;
+use PHPSocketIO\SocketIO;
+
+$io = new SocketIO(2021);
+$io->on('connection', function($socket) {
+    $socket->on('message', function ($data)use($socket){
+        $socket->emit('message_received', $data);
+        $socket->broadcast->emit('message', $data);
+    });
+    $socket->on('nextStep', function ($data)use($socket){
+        // Do something
+    });
+});
+
+Worker::runAll();
+                </code></pre>
+
+                <pre><code class="hljs" data-trim contenteditable>php server.php start</code></pre>
+            </section>
+
+
+                <section id="code_example_php">
+                <h1>Exemple de code pour mon projet</h1>
+
+                <div>
+                    <div id="code_example_php__client">
+                        <h2>Émetteur (régie)</h2>
+                        <pre><code class="hljs" data-trim contenteditable>const socket = io.connect('http://localhost:2021');
+
+const selectPicture = (idPicture) =>
+    socket.emit('selectPicture', { id : idPicture } ));
+                        </code></pre>
+
+                        <h2>Récepteur (spectateur)</h2>
+                        <pre><code class="hljs" data-trim contenteditable>const socket = io.connect('http://localhost:2021');
+
+socket.on('selectPicture', jsonData => {
+    document.getElementById(`#picture_${ jsonData.id }`)
+            .classList.add("selected");
+});
+                        </code></pre>
+                    </div>
+                    <div id="code_example_php__server">
+                        <h2>Serveur PHP</h2>
+                        <pre><code class="hljs" data-trim contenteditable>use Workerman\Worker;
+use PHPSocketIO\SocketIO;
+
+$io = new SocketIO(2021);
+$io->on('connection', function($socket) {
+    $socket->on('selectPicture',
+        function ($data)use($socket) {
+            // Database update
+            $socket->broadcast->emit('selectPicture', $data);
+        });
+});
+
+Worker::runAll();
+                        </code></pre>
+                    </div>
+                </div>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>Problématique : côté régie, je veux également faire des choses : ajouter la classe CSS, masquer un bouton, etc.</p>
+                            <p>Et je veux m'assurer que les interfaces sont toujours bien synchronisées</p>
+                        </div>
+                    </aside>
+            </section>
+
+            <section>
+                <section id="synchronisation_1">
+                    <h1>La synchronisation</h1>
+                    <h2>Comment garder toutes les interfaces synchronisées</h2>
+
+                    <figure id="synchronisation_1__illustration">
+                        <img src="/public/images/illustrations/synchronisation-1-step-1.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-1-step-2.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-1-step-3.png" class="fragment" />
+                    </figure>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="synchronisation_2">
+                    <h1>La synchronisation</h1>
+                    <h2>Comment garder toutes les interfaces synchronisées</h2>
+
+                    <figure id="synchronisation_2__illustration">
+                        <img src="/public/images/illustrations/synchronisation-2-step-1.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-2-step-2.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-2-step-3.png" class="fragment" />
+                    </figure>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="synchronisation_fail">
+                    <h1>La synchronisation</h1>
+                    <h2>En cas de problème serveur</h2>
+
+                    <div id="synchronisation_fail__illustration">
+                        <div class="synchronisation__solution">
+                            <h3>Solution 1</h3>
+                            <figure>
+                                <img src="/public/images/illustrations/synchronisation-1-fail-step-1.png" />
+                                <img src="/public/images/illustrations/synchronisation-1-fail-step-2.png" class="fragment" />
+                            </figure>
+                        </div>
+                        <div class="synchronisation__solution">
+                            <h3>Solution 2</h3>
+                            <figure>
+                                <img src="/public/images/illustrations/synchronisation-2-fail-step-1.png" />
+                                <img src="/public/images/illustrations/synchronisation-2-fail-step-2.png" class="fragment" />
+                            </figure>
+                        </div>
+                    </div>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+
+                        </div>
+                    </aside>
+                </section>
+
+
+
+                <section id="synchronisation_hybride">
+                    <h1>La synchronisation</h1>
+                    <h2>Solution hybride</h2>
+
+                    <figure id="synchronisation_3__illustration">
+                        <img src="/public/images/illustrations/synchronisation-3-step-1.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-3-step-2.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-3-step-3.png" class="fragment" />
+                        <img src="/public/images/illustrations/synchronisation-3-step-4-fail.png" class="fragment" />
+                    </figure>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            Tout est OK quand ça se passe bien, mais si un message se perd, aucun moyen pour le client de le savoir.
+                            Obligé de faire un timeout pour chaque message
+                        </div>
+                    </aside>
+                </section>
+            </section>
+
+            <section>
+                <section id="resultat_ok">
+                    <h1>Le résultat</h1>
+
+                    <figure>
+                        <img id="resultat_ok__wamp" class="fragment" src="/public/images/visuels_application/wamp-vert.png" />
+                        <img id="resultat_ok__ws_server" class="fragment" src="/public/images/visuels_application/php-ws-server-ready.jpg" />
+                        <img id="resultat_ok__application" class="fragment" src="/public/images/visuels_application/application-ok.jpg" />
+                    </figure>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Pour la première, je suis en régie avec mon pote. Pendant la répétition je corrige quelques bugs mineurs
+                                (c'est toujours mieux de corriger sur la prod), mais pendant la représention, tout se passe bien.
+                            </p>
+                            <p>Donc le logiciel est validé et éprouvé... Mais on avait oublié de tenir compte de la loi de Murphy.</p>
+                            <p>Pour la deuxième représentation, je n'étais pas dispo... du coup...</p>
+                        </div>
+                    </aside>
+                </section>
+
+
+                <section id="resultat_ko">
+                    <h1>Le résultat</h1>
+
+                    <figure>
+                        <img id="resultat_ko__wamp" class="fragment" src="/public/images/visuels_application/wamp-orange.jpg" />
+                        <img id="resultat_ko__ws_server" class="fragment" src="/public/images/visuels_application/php-ws-server-error.jpg" />
+                        <img id="resultat_ko__application" class="fragment" src="/public/images/visuels_application/error-404.jpg" />
+                    </figure>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>Tous ceux qui ont développé sous WAMP ont peur de ça : le W orange.
+                                Quand on a de la chance, c'est juste Skype qu'il faut killer, mais sinon il faut fouiller un peu.
+                                Et quand on est sur TeamViewer sur un smartphone, ça devient vite compliqué...</p>
+                            <p>Autre problème : le serveur WS PHP n'est stable. Il y a des déconnexions, des messages foireux. En plus le PC rame</p>
+                            <p>Pour moi du coup les WebSockets sont un problème. Ce n'est pas stable (en tous cas au moins le serveur PHP)
+                                et puis ça fait 2 serveurs à démarrer donc pas le plus intuitif.chml</p>
+                        </div>
+                    </aside>
+                </section>
+            </section>
+
+
+
+
+            <section id="solution_popup">
+                <section id="solution_popup__illustration">
+                    <h1>Une autre solution</h1>
+                    <h2>La bonne vieille popup</h2>
+
+                    <div id="solution_popup__code">
+
+
+                        <h1>TODO Illustration</h1>
+
+                        <div>
+                            <div><pre><code class="hljs" data-trim contenteditable>const popup = window.open(url);
+
+    popup.maMethode();
+
+    window.opener.maMethode();</code></pre></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="solution_popup__synchronisation">
+                    <h1>Une autre solution</h1>
+                    <h2>La bonne vieille popup</h2>
+
+                    <h3>Stratégie ?</h3>
+                    <div class="solution_popup__h2_strategie fragment">
+                        <div>
+                            <p>Régie → Spectateur</p>
+                            <p>Spectateur → Régie</p>
+                        </div>
+                    </div>
+                    <div class="solution_popup__h2_strategie fragment">
+                        <div>
+                            <p> </p>
+                            <p>Plus stable (graphiquement)</p>
+                        </div>
+                    </div>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            Avec les popups, s’il y a déconnexion (l'une des pages plante), il n’y a aucun moyen à ma connaissance pour récupérer cette
+                            connexion. Il faut fermer l’onglet fils et en ré-ouvrir un. Donc la solution que j’ai choisi est que l’onglet
+                            parent est l’onglet spectateur et que l’enfant et la régie. Si la régie (l’enfant) se retrouve déconnecté,
+                            j’affiche un gros message d’erreur, on s’en fout c’est la régie. Le manipulateur a donc juste à fermer
+                            l’onglet régie et en ouvrir un nouveau en appuyant sur la touche R et la connexion a été reprise.
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="solution_popup__pro_cons">
+                    <h1>Une autre solution</h1>
+                    <h2>La bonne vieille popup</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="avantage">Avantages</th>
+                                <th class="inconvenient">Inconvénients</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="avantage">Cross-origin</td>
+                                <td class="inconvenient">Peut être bloqué par le navigateur</td>
+                            </tr>
+                            <tr>
+                                <td class="avantage">Supporté par la plupart des navigateurs</td>
+                                <td class="inconvenient">Manque de stabilité</td>
+                            </tr>
+                            <tr>
+                                <td class="avantage">Pas besoin de serveur</td>
+                                <td class="inconvenient">Forcément sur le même ordinateur</td>
+                            </tr>
+                            <tr>
+                                <td class="avantage">Sérialisation des objets</td>
+                                <td class="inconvenient"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>ça me bloquait sur mes idées d’évolutions : pas de possibilité d’appareil tierce et moins
+                                d’intérêt à l’héberger sur un Raspberry car il faudra toujours un clavier et une souris.
+                            </p>
+                        </div>
+                    </aside>
+
+                </section>
+
+                <section id="solution_popup__mais">
+                    <img src="/public/images/php.jpg" />
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Et puis PHP quoi ! J’en fais de moins en moins et surtout, je n’ai plus envie d’en faire donc assurer la
+                                maintenance et les évolutions allait être de plus en plus compliqué.
+                            </p>
+                        </div>
+                    </aside>
+                </section>
+
+            </section>
+
+
+            <section>
+                <img src="/public/images/restart.gif" />
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <p>On efface tout et on recommence.</p>
+                        <p>Je voulais repartir sur du Java mais ce qui m'embétait c'était de faire installer un serveur Apache + un serveur Mysql
+                            aix utilisateurs tout en étant sûr des paramétrages installés (le driver, le port, tout ça).</p>
+                        <p>Un de mes collègue m'a dit : pourquoi tu ne pars pas sur Spring Boot ?</p>
+                    </div>
+                </aside>
+            </section>
+
+            <section>
+                <section id="spring_boot">
+                    <h1>Spring Boot</h1>
+
+                    <ul>
+                        <li>Serveur Tomcat intégré</li>
+                        <li>Base de données H2 en mode file</li>
+                        <li>Dépendance Spring pour les WebSockets</li>
+                        <li>Uniquement la JRE 8 à installer</li>
+                    </ul>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            Donc côté client, on repart sur des WebSockets et côté Back, du Java ça m’arrangerait bien mais
+                            installation de Java, du serveur Tomcat, de la BDD, ça fait beaucoup. Et là je découvre quelque chose de
+                            magique : Spring Boot. Alors c’est pas hyper nouveau, cla v1 est sortie en 2014 mais ça résoud tous mes
+                            problèmes de simplicité de déploiement. L’archive JAR embarque un serveur Tomcat, pour la BDD,
+                            j’embarque une bdd H2 de type file et le tour est joué. Tout ce qu’il y a à installer sur le poste utilisateur
+                            c’est Java 8, ce qui est assez simple.
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="sockjs__java__config">
+                    <h1>Sock JS + Stomp</h1>
+                    <h2>Configuration Java</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-websocket</artifactId>
+</dependency>
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic");
+        config.setApplicationDestinationPrefixes("/app");
+    }
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/my-websocket-app").withSockJS();
+    }
+
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Les topics SockJS sont gérées par annotation via une dépendance Spring. Spring Boot a une dépendance
+                                exprès pour la communication WebSocket via SockJS. On a juste à ajouter ces 2 annotations et on a une
+                                communication directe WebSocket ce qui rend le code beaucoup plus lisible.
+                            </p>
+                            <p>
+                                Spring intègre bien évidemment l’API native WebSocket via la dépendance [...] . En tous cas pou notre
+                                exemple, on va rester sur SockJS
+                            </p>
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="sockjs__js">
+                    <h1>Sock JS + Stomp</h1>
+                    <h2>Configuration JS</h2>
+                    <h2>TODO : Qu'est-ce que Stomp exactement (résoud les pbs d'encodage ?)</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+<script src="/path/to/sockjs.js"></script>
+<script src="/path/to/stomp.js"></script>
+
+const socket = new SockJS('http://localhost/my-websocket-app');
+stompClient = Stomp.over(socket);
+stompClient.connect({}, frame => {
+    console.log('Connected: ' + frame);
+
+    stompClient.send("/app/selectPicture/1", {}, "");
+    stompClient.send("/app/selectCategory", {}, JSON.stringify({'name' : 'toto'}));
+});
+                    </code></pre>
+                </section>
+
+                <section id="sockjs__java__controller">
+                    <h1>Sock JS + Stomp</h1>
+                    <h2>Controller WebSocket Java</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+    @MessageMapping("/selectPicture/{pictureId}")
+    @SendTo("/topic/selectPicture")
+    public PictureDto selectPicture(@DestinationVariable Integer pictureId) {
+        // Database update
+        return new PictureDto(pictureId);
+    }
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+    @MessageMapping("/selectCategory")
+    @SendTo("/topic/selectCategory")
+    public CategoryDto selectPicture(CategoryDto categoryDto) {
+        // Database update
+        return categoryDto;
+    }
+                    </code></pre>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Les topics SockJS sont gérées par annotation via une dépendance Spring. Spring Boot a une dépendance
+                                exprès pour la communication WebSocket via SockJS. On a juste à ajouter ces 2 annotations et on a une
+                                communication directe WebSocket ce qui rend le code beaucoup plus lisible.
+                            </p>
+                            <p>
+                                Spring intègre bien évidemment l’API native WebSocket via la dépendance [...] . En tous cas pou notre
+                                exemple, on va rester sur SockJS
+                            </p>
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="sockjs__js__callback">
+                    <h1>Sock JS + Stomp</h1>
+                    <h2>Callbacks JS</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+stompClient.subscribe('/topic/selectPicture', jsonData => {
+    const pictureId = JSON.parse(jsonData.body).id;
+    document.getElementById('#picture_${ pictureId }")
+            .classList.add("selected");
+});
+
+stompClient.subscribe('/topic/selectCategory', categoryDto => {
+    const categoryName = JSON.parse(jsonData.body).name;
+    loadCategory(categoryName);
+});
+                    </code></pre>
+                </section>
+
+
+                <section id="sockjs__other_methods__sendtouser">
+                    <h1>Autres méthodes</h1>
+                    <h2>@SendToUser (via Spring Security)</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+@MessageMapping("/message")
+@SendToUser("/queue/reply")
+public String processMessageFromClient(@Payload String message,
+                                       Principal principal) throws Exception {
+
+    return gson.fromJson(message, Map.class).get("name").toString();
+
+}
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+stompClient.send("/app/user/[myUserName]/message", {}, "message");
+                    </code></pre>
+                </section>
+
+                <section id="sockjs__other_methods__exception">
+                    <h1>Autres méthodes</h1>
+                    <h2>@MessageExceptionHandler</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+@MessageExceptionHandler
+@SendToUser("/queue/errors")
+public String handleException(Throwable exception) {
+    return exception.getMessage();
+}
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+ws.subscribe("/user/queue/reply", message => {
+    alert("Message " + message.body);
+});
+                    </code></pre>
+                </section>
+
+                <section id="sockjs__other_methods__messaging_template">
+                    <h1>Autres méthodes</h1>
+                    <h2>SimpMessagingTemplate</h2>
+
+                    <pre><code class="hljs" data-trim contenteditable>
+@Autowired
+private SimpMessagingTemplate msgTemplate;
+
+@MessageMapping("/chats")
+public void handleChat(@Payload ChatMessage message) {
+    this.msgTemplate.convertAndSend("/queue/chats-" + "mycustomidentifier",
+                        "[" + getTimestamp() + "]:" + message.getMessage());
+}
+
+@Schedule(cron="0 0 * * * *")
+public void spam() {
+    this.msgTemplate.convertAndSend("/queue/all-chats   ", "Abonnez-vous !!!");
+}
+                    </code></pre>
+                    <pre><code class="hljs" data-trim contenteditable>
+ws.subscribe("/user/queue/errors", function(message) {
+    alert("Error " + message.body);
+});
+                    </code></pre>
+                </section>
+
+
+                <section>
+                    <h1>TODO</h1>
+                    <ul>
+                        <li>Montée en charge ?</li>
+                        <li>Load balancing ?</li>
+                        <li>Rechercher comment faire du natif WS avec Spring</li>
+                        <li>Reveal.js a-t-il besoin d'un serveur ?</li>
+                    </ul>
+                </section>
+            </section>
+
+
+            <section id="demo_gif">
+                <img src="/public/images/demo_time.gif" />
+
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <p>Aller sur <code>start.spring.io</code> et cocher Web, Websocket et Lombok</p>
+                        <p>Unzip + copie de la partie client</p>
+
+                        <p>Paramètre de lancement : <b>VM options : -Dserver.port=9999</b></p>
+
+                        <div><b>client.js</b></div>
+                        <pre style="font-size : 14px;">
+const sock = new SockJS("/chat");
+const stomp = Stomp.over(sock);
+
+stomp.connect({}, subscribe);
+
+$("#submit_button").click(() => {
+    stomp.send("/message", {}, JSON.stringify({
+        userName : $("#input_userName").val(),
+        message : $("#input_message").val()
+    }));
+});
+
+function subscribe() {
+    stomp.subscribe("/topic/message", (response) => {
+        const content = JSON.parse(response.body);
+        $("#chat_content ul").append(
+            `&lt;li&gt;&lt;span class="userName"&gt;${ content.userName }&lt;/span&gt; : ${ content.message }&lt;/li&gt;`)
+    });
+}
+                        </pre>
+
+                        <div><b>WebsocketConfig.java</b></div>
+                        <pre style="font-size : 14px;">
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/chat").withSockJS();
+    }
+}
+                        </pre>
+
+                        <div><b>WebsocketController.java</b></div>
+                        <pre style="font-size : 14px;">
+@Controller
+public class WebsocketController {
+
+    @MessageMapping("/message")
+    @SendTo("/topic/message")
+    public MessageDto broadcastMessage(MessageDto message) {
+        return message;
+    }
+}
+                        </pre>
+                    </div>
+                </aside>
+            </section>
+
+            <section id="merci">
+                <h1>Merci</h1>
+            </section>
+
+            <section id="links">
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=5zFd_ZQZ7V0">H. Sablonnière : Le Web multi-écrans en action</a>
+                        <br/>
+                        Communication sur une seule machine sans serveur (Popup, LocalStorage events, Broadcast Channel)</li>
+                    <li><a href="https://start.spring.io/" target="_blank">Spring Initializr</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=P55DGb258gY">Devoxx : De zéro à héros avec Spring Boot</a>
+                        <br/>
+                        Attention : concerne Spring Boot 1</li>
+                    <li><a href="https://tech.m6web.fr/benchmarking-websockets-avec-nodejs">TechM6Web : Benchmarking WebSockets</a>
+                        <br/>
+                        Benchmark, tests de montée en charge, ...
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="/public/reveal/lib/js/head.min.js"></script>
+    <script src="/public/reveal/js/reveal.js"></script>
+
+    <script>
+
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'concave', // none/fade/slide/convex/concave/zoom
+
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [
+                { src: '/public/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: '/public/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '/public/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '/public/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '/public/reveal/plugin/search/search.js', async: true },
+                { src: '/public/reveal/plugin/zoom-js/zoom.js', async: true },
+                { src: '/public/reveal/plugin/notes/notes.js', async: true }
+            ]
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+#projet_prerequis h1,
+#projet_prerequis_supplémentaires h1 {
+    margin-bottom : 30px;
+}
+
+#projet_prerequis ul,
+#projet_prerequis_supplémentaires ul {
+    text-align : left;
+    width : 80%;
+    margin : auto;
+}
+
+#projet_prerequis li,
+#projet_prerequis_supplémentaires li {
+    margin : 30px 0;
+}
+
+
+
+
+#projet_technologies > main {
+    display : flex;
+}
+#projet_technologies > main > div{
+    flex : 1;
+    height : 450px;
+}
+
+#projet_technologies h1{ margin-bottom : 40px; }
+#projet_technologies h2{ margin-bottom : 30px; }
+
+#projet_technologies {
+    margin-bottom : 20px;
+    font-weight: bold;
+}
+
+#projet_technologies img {
+    height : 150px;
+    width : 300px;
+    object-fit : contain;
+    margin-bottom : 20px;
+}

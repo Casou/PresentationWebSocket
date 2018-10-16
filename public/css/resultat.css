@@ -1,0 +1,43 @@
+#resultat_ok figure,
+#resultat_ko figure {
+    display : inline-block;
+    position : relative;
+    width : 100%;
+    height : 450px;
+    margin-top : 50px;
+    margin-left : -10%;
+}
+
+#resultat_ok img,
+#resultat_ko img {
+    position : absolute;
+}
+#resultat_ok #resultat_ok__wamp,
+#resultat_ko #resultat_ko__wamp {
+    top: 0;
+    left: 275px;
+    height: 100px;
+}
+
+#resultat_ok #resultat_ok__ws_server,
+#resultat_ko #resultat_ko__ws_server {
+    top: 50px;
+    right: 40px;
+    height: 330px;
+}
+
+#resultat_ko #resultat_ko__ws_server {
+    top: 50px;
+    right: 40px;
+    height: 430px;
+}
+
+#resultat_ok #resultat_ok__application,
+#resultat_ko #resultat_ko__application {
+    top: 0;
+    left: 50%;
+    height: 550px;
+    margin-left: -435px;
+    border: 1px solid white;
+}
+
