@@ -3,60 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Présentation WebSocket - Basile Parent</title>
+    <link rel="shortcut icon" href="public/images/icone.png">
 
     <meta name="description" content="Présentation Websocket">
     <meta name="author" content="Basile Parent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="/public/reveal/css/reveal.css">
-    <link rel="stylesheet" href="/public/reveal/lib/css/zenburn.css">
-    <link rel="stylesheet" href="/public/css/index.css">
-    <link rel="stylesheet" href="/public/css/intro.css">
-    <link rel="stylesheet" href="/public/css/scene.css">
-    <link rel="stylesheet" href="/public/css/projet.css">
-    <link rel="stylesheet" href="/public/css/websocket.css">
-    <link rel="stylesheet" href="/public/css/synchronisation.css">
-    <link rel="stylesheet" href="/public/css/popup.css">
-    <link rel="stylesheet" href="/public/css/spring-boot-sockjs.css">
-    <link rel="stylesheet" href="/public/css/demo.css">
-    <link rel="stylesheet" href="/public/css/resultat.css">
-    <link rel="stylesheet" href="/public/css/sockjs.css">
-    <link rel="stylesheet" href="/public/css/merci.css">
+    <link rel="stylesheet" href="public/reveal/css/reveal.css">
+    <link rel="stylesheet" href="public/reveal/lib/css/zenburn.css">
+    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/intro.css">
+    <link rel="stylesheet" href="public/css/intro.css">
+    <link rel="stylesheet" href="public/css/scene.css">
+    <link rel="stylesheet" href="public/css/projet.css">
+    <link rel="stylesheet" href="public/css/websocket.css">
+    <link rel="stylesheet" href="public/css/synchronisation.css">
+    <link rel="stylesheet" href="public/css/popup.css">
+    <link rel="stylesheet" href="public/css/spring-boot-sockjs.css">
+    <link rel="stylesheet" href="public/css/demo.css">
+    <link rel="stylesheet" href="public/css/resultat.css">
+    <link rel="stylesheet" href="public/css/sockjs.css">
+    <link rel="stylesheet" href="public/css/merci.css">
+    
+    
 </head>
-<body data-background-iframe="/public/images/bg_ProxiAD_mini.png">
+<body data-background-iframe="public/images/bg_ProxiAD_mini.png">
     <div class="reveal">
 
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section id="intro">
                 <h1>Faire communiquer 2 navigateurs</h1>
-                <h2>Présentation sur les Websockets et Spring Boot avec une pincée d'IOT</h2>
+                <h2>Présentation sur les Websockets avec un peu de Spring Boot dedans</h2>
 
                 <video autoplay="true" loop>
-                    <source src="/public/images/websocket_animation.mp4" type="video/mp4" />
+                    <source src="public/images/websocket_animation.mp4" type="video/mp4" />
                 </video>
+
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        Présentation en mode retour d'expérience
+                    </div>
+                </aside>
             </section>
 
             <section id="presentation">
-                <img src="/public/images/photo.jpg" id="presentation__avatar" />
+                <img src="public/images/photo.jpg" id="presentation__avatar" />
                 <h1>Basile Parent</h1>
                 <div id="presentation__description">
                     <div id="presentation__job">Développeur Web<br/>Scrum Master</div>
                     <div id="presentation__twitter">
-                        <img src="/public/images/twitter.png" />
+                        <img src="public/images/twitter.png" />
                         <span>@basileparent</span>
                     </div>
-                    <div id="presentation__malentendant"><img src="/public/images/malentendant.png" /></div>
+                    <div id="presentation__malentendant"><img src="public/images/malentendant.png" /></div>
                 </div>
-                <img id="presentation__logo_proxiad" src="/public/images/logo_ProxiAD.png" />
+                <img id="presentation__logo_proxiad" src="public/images/logo_ProxiAD.png" />
             </section>
 
             <section>
                 <section id="intro_pourquoi">
                     <h1>Pourquoi faire ?</h1>
                     <div id="intro_pourquoi__personnages_1">
-                        <div class="fragment"><img src="/public/images/illustrations/boss.png" /></div>
-                        <div class="fragment"><img src="/public/images/illustrations/demande-pote.png" /></div>
+                        <div class="fragment"><img src="public/images/illustrations/boss.png" /></div>
+                        <div class="fragment"><img src="public/images/illustrations/demande-pote.png" /></div>
                     </div>
 
                     <aside class="notes" data-markdown>
@@ -67,16 +77,16 @@
                 <section id="intro_pourquoi_2">
                     <h1>Pourquoi faire ?</h1>
                     <div id="intro_pourquoi__personnages_2">
-                        <img src="/public/images/illustrations/demande-pote-courir.png" id="intro_pourquoi__personnages__bg" />
-                        <img src="/public/images/illustrations/demande-pote-courir-bulle-1.png" id="intro_pourquoi__personnages__bulle_1" class="intro_pourquoi__personnages__bulle fragment" />
-                        <img src="/public/images/illustrations/demande-pote-courir-bulle-2.png" id="intro_pourquoi__personnages__bulle_2" class="intro_pourquoi__personnages__bulle fragment" />
-                        <img src="/public/images/illustrations/demande-pote-courir-bulle-3.png" id="intro_pourquoi__personnages__bulle_3" class="intro_pourquoi__personnages__bulle fragment" />
+                        <img src="public/images/illustrations/demande-pote-courir.png" id="intro_pourquoi__personnages__bg" />
+                        <img src="public/images/illustrations/demande-pote-courir-bulle-1.png" id="intro_pourquoi__personnages__bulle_1" class="intro_pourquoi__personnages__bulle fragment" />
+                        <img src="public/images/illustrations/demande-pote-courir-bulle-2.png" id="intro_pourquoi__personnages__bulle_2" class="intro_pourquoi__personnages__bulle fragment" />
+                        <img src="public/images/illustrations/demande-pote-courir-bulle-3.png" id="intro_pourquoi__personnages__bulle_3" class="intro_pourquoi__personnages__bulle fragment" />
                     </div>
                 </section>
             </section>
 
             <section id="projet_ppt">
-                <img src="/public/images/illustrations/impro-diapo-ppt.jpg" />
+                <img src="public/images/illustrations/impro-diapo-ppt.jpg" />
                 <aside class="notes">
                     <div style="font-size : 20px;">
                         <ul style="margin : 0; padding : 0;">
@@ -94,9 +104,9 @@
             <section id="scene_impro">
                 <h1>Le projet</h1>
                 <div id="scene_impro__illustration">
-                    <img src="/public/images/illustrations/regie-projo-bg.png" id="scene_impro__illustration__bg" />
-                    <img src="/public/images/illustrations/regie-projo-step-1.png" id="intro_pourquoi__personnages__step_1" class="fragment" />
-                    <img src="/public/images/illustrations/regie-projo-step-2.png" id="intro_pourquoi__personnages__step_2" class="fragment" />
+                    <img src="public/images/illustrations/regie-projo-bg.png" id="scene_impro__illustration__bg" />
+                    <img src="public/images/illustrations/regie-projo-step-1.png" id="intro_pourquoi__personnages__step_1" class="fragment" />
+                    <img src="public/images/illustrations/regie-projo-step-2.png" id="intro_pourquoi__personnages__step_2" class="fragment" />
                 </div>
             </section>
 
@@ -146,14 +156,14 @@
                 <main>
                     <div id="projet_technologies__front" class="fragment">
                         <h2>Front</h2>
-                        <img src="/public/images/icon_js.png" />
-                        <img src="/public/images/icon_jquery.png" />
+                        <img src="public/images/icon_js.png" />
+                        <img src="public/images/icon_jquery.png" />
                     </div>
 
                     <div id="projet_technologies__back" class="fragment">
                         <h2>Back</h2>
-                        <img src="/public/images/icon_php.png" />
-                        <img src="/public/images/icon_mysql.png" />
+                        <img src="public/images/icon_php.png" />
+                        <img src="public/images/icon_mysql.png" />
                     </div>
                 </main>
                 <aside class="notes">
@@ -171,7 +181,7 @@
                     <h2>Ajax Polling</h2>
 
                     <main>
-                        <img src="/public/images/ajax_polling.gif" />
+                        <img src="public/images/ajax_polling.gif" />
                     </main>
                     <aside class="notes">
                         <div style="font-size : 20px;">
@@ -185,7 +195,7 @@
                     <h2>Les WebSockets</h2>
 
                     <main>
-                        <img src="/public/images/websockets-diagram.png" />
+                        <img src="public/images/websockets-diagram.png" />
                     </main>
                     <aside class="notes">
                         <div style="font-size : 20px;">
@@ -213,15 +223,15 @@
 
                     <main>
                         <ul>
-                            <li><figure><img src="/public/images/logos/chrome.png" /></figure><span>Chrome 16 + (2011)</span></li>
-                            <li><figure><img src="/public/images/logos/firefox.png" /></figure><span>Firefox 11 + (2012)</span></li>
-                            <li><figure><img src="/public/images/logos/ie.png" /></figure><span>IE 10+ (2012)</span></li>
-                            <li><figure><img src="/public/images/logos/edge.png" /></figure><span>Edge 12 (2015)</span></li>
-                            <li><figure><img src="/public/images/logos/safari.png" /></figure><span>Safari 7 + (2013)</span></li>
-                            <li><figure><img src="/public/images/logos/opera.png" /></figure><span>Opera 12.1 + (2012)</span></li>
-                            <li><figure><img src="/public/images/logos/ios.png" /></figure><span>iOS Safari 6.0 + (2013)</span></li>
-                            <li><figure><img src="/public/images/logos/android.png" /></figure><span>Android 4.4 + (2013)</span></li>
-                            <li><figure><img src="/public/images/logos/blackberry.png" /></figure><span>Blackberry 7 + (2012)</span></li>
+                            <li><figure><img src="public/images/logos/chrome.png" /></figure><span>Chrome 16 + (2011)</span></li>
+                            <li><figure><img src="public/images/logos/firefox.png" /></figure><span>Firefox 11 + (2012)</span></li>
+                            <li><figure><img src="public/images/logos/ie.png" /></figure><span>IE 10+ (2012)</span></li>
+                            <li><figure><img src="public/images/logos/edge.png" /></figure><span>Edge 12 (2015)</span></li>
+                            <li><figure><img src="public/images/logos/safari.png" /></figure><span>Safari 7 + (2013)</span></li>
+                            <li><figure><img src="public/images/logos/opera.png" /></figure><span>Opera 12.1 + (2012)</span></li>
+                            <li><figure><img src="public/images/logos/ios.png" /></figure><span>iOS Safari 6.0 + (2013)</span></li>
+                            <li><figure><img src="public/images/logos/android.png" /></figure><span>Android 4.4 + (2013)</span></li>
+                            <li><figure><img src="public/images/logos/blackberry.png" /></figure><span>Blackberry 7 + (2012)</span></li>
                         </ul>
                     </main>
                     <aside class="notes">
@@ -237,30 +247,30 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Avantages</th>
+                                <th class="avantage">Avantages</th>
                                 <th>Inconvénients</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Cross plateforme (Web, desktop, mobile)</td>
-                                <td>Pas de fonction de retour comme en Ajax</td>
+                                <td class="avantage">Cross plateforme (Web, desktop, mobile)</td>
+                                <td class="inconvenient">Pas de fonction de retour comme en Ajax</td>
                             </tr>
                             <tr>
-                                <td>Pas d'entête HTTP</td>
-                                <td>A besoin d'un serveur pour fonctionner</td>
+                                <td class="avantage">Pas d'entête HTTP</td>
+                                <td class="inconvenient">A besoin d'un serveur pour fonctionner</td>
                             </tr>
                             <tr>
-                                <td>Plus rapide que l'AJAX</td>
-                                <td>Besoin de réfléchir à sa "stratégie" de communication</td>
+                                <td class="avantage">Plus rapide que l'AJAX</td>
+                                <td class="inconvenient">Besoin de réfléchir à sa "stratégie" de communication</td>
                             </tr>
                             <tr>
-                                <td>Le serveur connait ses clients actifs</td>
-                                <td></td>
+                                <td class="avantage">Le serveur connait ses clients actifs</td>
+                                <td class="inconvenient"></td>
                             </tr>
                             <tr>
-                                <td>Compatible avec tous les navigateurs récents</td>
-                                <td>Compatible avec tous les navigateurs <span class="important">récents</span></td>
+                                <td class="avantage">Compatible avec tous les navigateurs récents</td>
+                                <td class="inconvenient">Compatible avec tous les navigateurs <span class="important">récents</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -275,11 +285,6 @@
                         </p>
                     </div>
                 </aside>
-            </section>
-
-
-            <section id="communication_gif">
-                <img src="/public/images/allons-y.gif" />
             </section>
 
             <section>
@@ -481,19 +486,19 @@ Worker::runAll();
             </section>
 
 
-                <section id="code_example_php">
+            <section id="code_example_php">
                 <h1>Exemple de code pour mon projet</h1>
 
                 <div>
                     <div id="code_example_php__client">
-                        <h2>Émetteur (régie)</h2>
+                        <h2 id="code_example_php__client__regie">Émetteur (régie)</h2>
                         <pre><code class="hljs" data-trim contenteditable>const socket = io.connect('http://localhost:2021');
 
 const selectPicture = (idPicture) =>
     socket.emit('selectPicture', { id : idPicture } ));
                         </code></pre>
 
-                        <h2>Récepteur (spectateur)</h2>
+                        <h2 id="code_example_php__client__spectateur">Récepteur (spectateur)</h2>
                         <pre><code class="hljs" data-trim contenteditable>const socket = io.connect('http://localhost:2021');
 
 socket.on('selectPicture', jsonData => {
@@ -512,7 +517,8 @@ $io->on('connection', function($socket) {
     $socket->on('selectPicture',
         function ($data)use($socket) {
             // Database update
-            $socket->broadcast->emit('selectPicture', $data);
+            $socket->broadcast
+                   ->emit('selectPicture', $data);
         });
 });
 
@@ -535,9 +541,9 @@ Worker::runAll();
                     <h2>Comment garder toutes les interfaces synchronisées</h2>
 
                     <figure id="synchronisation_1__illustration">
-                        <img src="/public/images/illustrations/synchronisation-1-step-1.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-1-step-2.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-1-step-3.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-1-step-1.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-1-step-2.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-1-step-3.png" class="fragment" />
                     </figure>
 
                     <aside class="notes">
@@ -552,9 +558,9 @@ Worker::runAll();
                     <h2>Comment garder toutes les interfaces synchronisées</h2>
 
                     <figure id="synchronisation_2__illustration">
-                        <img src="/public/images/illustrations/synchronisation-2-step-1.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-2-step-2.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-2-step-3.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-2-step-1.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-2-step-2.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-2-step-3.png" class="fragment" />
                     </figure>
 
                     <aside class="notes">
@@ -572,15 +578,15 @@ Worker::runAll();
                         <div class="synchronisation__solution">
                             <h3>Solution 1</h3>
                             <figure>
-                                <img src="/public/images/illustrations/synchronisation-1-fail-step-1.png" />
-                                <img src="/public/images/illustrations/synchronisation-1-fail-step-2.png" class="fragment" />
+                                <img src="public/images/illustrations/synchronisation-1-fail-step-1.png" />
+                                <img src="public/images/illustrations/synchronisation-1-fail-step-2.png" class="fragment" />
                             </figure>
                         </div>
                         <div class="synchronisation__solution">
                             <h3>Solution 2</h3>
                             <figure>
-                                <img src="/public/images/illustrations/synchronisation-2-fail-step-1.png" />
-                                <img src="/public/images/illustrations/synchronisation-2-fail-step-2.png" class="fragment" />
+                                <img src="public/images/illustrations/synchronisation-2-fail-step-1.png" />
+                                <img src="public/images/illustrations/synchronisation-2-fail-step-2.png" class="fragment" />
                             </figure>
                         </div>
                     </div>
@@ -599,10 +605,10 @@ Worker::runAll();
                     <h2>Solution hybride</h2>
 
                     <figure id="synchronisation_3__illustration">
-                        <img src="/public/images/illustrations/synchronisation-3-step-1.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-3-step-2.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-3-step-3.png" class="fragment" />
-                        <img src="/public/images/illustrations/synchronisation-3-step-4-fail.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-3-step-1.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-3-step-2.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-3-step-3.png" class="fragment" />
+                        <img src="public/images/illustrations/synchronisation-3-step-4-fail.png" class="fragment" />
                     </figure>
 
                     <aside class="notes">
@@ -619,9 +625,9 @@ Worker::runAll();
                     <h1>Le résultat</h1>
 
                     <figure>
-                        <img id="resultat_ok__wamp" class="fragment" src="/public/images/visuels_application/wamp-vert.png" />
-                        <img id="resultat_ok__ws_server" class="fragment" src="/public/images/visuels_application/php-ws-server-ready.jpg" />
-                        <img id="resultat_ok__application" class="fragment" src="/public/images/visuels_application/application-ok.jpg" />
+                        <img id="resultat_ok__wamp" class="fragment" src="public/images/visuels_application/wamp-vert.png" />
+                        <img id="resultat_ok__ws_server" class="fragment" src="public/images/visuels_application/php-ws-server-ready.jpg" />
+                        <img id="resultat_ok__application" class="fragment" src="public/images/visuels_application/application-ok.jpg" />
                     </figure>
 
                     <aside class="notes">
@@ -641,9 +647,9 @@ Worker::runAll();
                     <h1>Le résultat</h1>
 
                     <figure>
-                        <img id="resultat_ko__wamp" class="fragment" src="/public/images/visuels_application/wamp-orange.jpg" />
-                        <img id="resultat_ko__ws_server" class="fragment" src="/public/images/visuels_application/php-ws-server-error.jpg" />
-                        <img id="resultat_ko__application" class="fragment" src="/public/images/visuels_application/error-404.jpg" />
+                        <img id="resultat_ko__wamp" class="fragment" src="public/images/visuels_application/wamp-orange.jpg" />
+                        <img id="resultat_ko__ws_server" class="fragment" src="public/images/visuels_application/php-ws-server-error.jpg" />
+                        <img id="resultat_ko__application" class="fragment" src="public/images/visuels_application/error-404.jpg" />
                     </figure>
 
                     <aside class="notes">
@@ -753,7 +759,7 @@ Worker::runAll();
                 </section>
 
                 <section id="solution_popup__mais">
-                    <img src="/public/images/php.jpg" />
+                    <img src="public/images/php.jpg" />
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
@@ -769,7 +775,7 @@ Worker::runAll();
 
 
             <section>
-                <img src="/public/images/restart.gif" />
+                <img src="public/images/restart.gif" />
                 <aside class="notes">
                     <div style="font-size : 20px;">
                         <p>On efface tout et on recommence.</p>
@@ -969,19 +975,14 @@ private SimpMessagingTemplate msgTemplate;
 
 @MessageMapping("/chats")
 public void handleChat(@Payload ChatMessage message) {
-    this.msgTemplate.convertAndSend("/queue/chats-" + "mycustomidentifier",
+    this.msgTemplate.convertAndSend("/queue/chats-" + myCustomIdentifier,
                         "[" + getTimestamp() + "]:" + message.getMessage());
 }
 
 @Schedule(cron="0 0 * * * *")
 public void spam() {
-    this.msgTemplate.convertAndSend("/queue/all-chats   ", "Abonnez-vous !!!");
+    this.msgTemplate.convertAndSend("/queue/all-chats", "Abonnez-vous !!!");
 }
-                    </code></pre>
-                    <pre><code class="hljs" data-trim contenteditable>
-ws.subscribe("/user/queue/errors", function(message) {
-    alert("Error " + message.body);
-});
                     </code></pre>
                 </section>
 
@@ -989,17 +990,14 @@ ws.subscribe("/user/queue/errors", function(message) {
                 <section>
                     <h1>TODO</h1>
                     <ul>
-                        <li>Montée en charge ?</li>
-                        <li>Load balancing ?</li>
                         <li>Rechercher comment faire du natif WS avec Spring</li>
-                        <li>Reveal.js a-t-il besoin d'un serveur ?</li>
                     </ul>
                 </section>
             </section>
 
 
             <section id="demo_gif">
-                <img src="/public/images/demo_time.gif" />
+                <img src="public/images/demo_time.gif" />
 
                 <aside class="notes">
                     <div style="font-size : 20px;">
@@ -1083,8 +1081,8 @@ public class WebsocketController {
         </div>
     </div>
 
-    <script src="/public/reveal/lib/js/head.min.js"></script>
-    <script src="/public/reveal/js/reveal.js"></script>
+    <script src="public/reveal/lib/js/head.min.js"></script>
+    <script src="public/reveal/js/reveal.js"></script>
 
     <script>
 
@@ -1099,13 +1097,13 @@ public class WebsocketController {
 
             // More info https://github.com/hakimel/reveal.js#dependencies
             dependencies: [
-                { src: '/public/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                { src: '/public/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                { src: '/public/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                { src: '/public/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                { src: '/public/reveal/plugin/search/search.js', async: true },
-                { src: '/public/reveal/plugin/zoom-js/zoom.js', async: true },
-                { src: '/public/reveal/plugin/notes/notes.js', async: true }
+                { src: 'public/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'public/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'public/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'public/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'public/reveal/plugin/search/search.js', async: true },
+                { src: 'public/reveal/plugin/zoom-js/zoom.js', async: true },
+                { src: 'public/reveal/plugin/notes/notes.js', async: true }
             ]
         });
 

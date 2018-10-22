@@ -1,9 +1,11 @@
 h1 { font-size : 55px !important; text-transform: uppercase; font-weight : bold !important; }
 h2 { font-size : 45px !important; }
 
-@import url(../../lib/font/source-sans-pro/source-sans-pro.css);
+@import url(../reveal/lib/font/source-sans-pro/source-sans-pro.css);
 body  {
-    background : url('/public/images/bg_ProxiAD.png') left top no-repeat;
+    background : url('../images/bg_ProxiAD.png') left top no-repeat,
+    radial-gradient(ellipse at center, #eeeeee 0%,#ffffff 0%,#dbdbdb 100%);
+
     position : absolute;
     height : 100%;
     width : 100%;
@@ -11,6 +13,10 @@ body  {
     font-family: "Source Sans Pro", Helvetica, sans-serif;
     color: black;
     font-size : 32px;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 ul {
@@ -29,7 +35,7 @@ ul ul {
 
 .reveal .progress {
     background: rgba(0, 0, 0, 0.2);
-    color: #42affa;
+    color: #3765b7;
 }
 
 .reveal table th, .reveal table td {

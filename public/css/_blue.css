@@ -8,7 +8,7 @@
 ###############################################################################
  */
 body {
-    background : url('/public/images/bg_bleu.jpg') left top repeat-x;
+    background : url('public/images/bg_bleu.jpg') left top repeat-x;
 }
 
 .slides {

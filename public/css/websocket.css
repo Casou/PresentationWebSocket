@@ -101,16 +101,20 @@
 }
 
 #code_example_php > div {
-    width: 1400px;
-    margin-left: -225px;
-}
-
-#code_example_php > div {
-    display: flex;
+    width: 1260px;
+    margin-left: -155px;
+    display : inline-block;
 }
 
 #code_example_php > div > div {
-    flex: 1;
+    display : inline-block;
+}
+
+#code_example_php__client { width : 660px }
+#code_example_php__server { width : 590px }
+
+#code_example_php__client__spectateur {
+    margin-top : 23px;
 }
 
 #code_example_php pre {
