@@ -3,3 +3,4 @@
 *.iml
 public/images/illustrations/PS
 node_modules
+package-lock.json
