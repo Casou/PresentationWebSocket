@@ -74,6 +74,12 @@
     flex: 1;
 }
 
+#websocket_switch > div > div#websocket_switch__serveur > h2,
+#websocket_switch > div > div#websocket_switch__client > h2 {
+    font-size : 35px !important;
+}
+
+#websocket_switch > div > div#websocket_switch__serveur > h2:nth-of-type(2),
 #websocket_switch > div > div#websocket_switch__client > h2:nth-of-type(2) {
     margin-top: 38px;
 }

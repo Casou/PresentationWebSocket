@@ -34,7 +34,10 @@
         <div class="slides">
             <section id="intro">
                 <h1>Faire communiquer 2 navigateurs</h1>
-                <h2>Présentation sur les Websockets avec un peu de Spring Boot dedans</h2>
+                <h2>
+                    Présentation sur les Websockets
+                    <br/>avec un peu de Spring Boot dedans
+                </h2>
 
                 <video autoplay="true" loop>
                     <source src="public/images/websocket_animation.mp4" type="video/mp4" />
@@ -70,7 +73,7 @@
                     </div>
 
                     <aside class="notes" data-markdown>
-                        Mes notes sur ce slide
+
                     </aside>
                 </section>
 
@@ -117,8 +120,13 @@
                         <li>2 interfaces distinctes : régie - spectateur</li>
                         <li>Les 2 interfaces communiquent en temps réel</li>
                         <li>Facilement paramétrable (back-office)</li>
-                        <li>Avoir un enchaînement d’écrans précis : <br/>intro, liste des catégories, catégorie, remerciements, prochaines dates</li>
+                        <li>Avoir un enchaînement précis d’écrans : <br/>intro, vidéo de présentation, liste des catégories, catégorie, remerciements, prochaines dates</li>
                     </ul>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            A ces contraintes demandées par le « client » se sont rajoutées des contraintes que je me suis moi même imposées
+                        </div>
+                    </aside>
                 </section>
 
                 <section id="projet_prerequis_supplémentaires">
@@ -135,8 +143,6 @@
                     </ul>
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            A ces contraintes demandées par le « client » se sont rajoutées des contraintes que je me suis moi même
-                            imposées :
                             <ul style="margin : 0; padding : 0;">
                                 <li>En cas d’imprévu (perte de connexion, portable qui plante), il faut que les sessions soient conservées
                                     pour qu’on ait pas à recommencer l’impro du début (faire défiler les séquences, etc.)</li>
@@ -168,9 +174,8 @@
                 </main>
                 <aside class="notes">
                     <div style="font-size : 20px;">
-                        Et oui, j’ai eu un page free pendant très longtemps, j’ai donc beaucoup exploré ce domaine et je me suis
-                        dit, en terme de déploiement, on installe WAMP et hop, c’est fini. Sauf que, ceux qui l’ont déjà utilisé le
-                        savent aussi bien que moi, ce n’est pas aussi simple que ça mais nous y reviendrons.
+                        PHP ça tourne partout. En terme de déploiement, on installe WAMP et hop, c’est fini.
+                        ...enfin sur le principe. Ca, on y reviendra.
                     </div>
                 </aside>
             </section>
@@ -200,17 +205,16 @@
                     <aside class="notes">
                         <div style="font-size : 20px;">
                             <p>
-                            Le principe d’une WebSocket, comme son nom l’indique c’est une connexion par socket qui est utilisé
-                            par les navigateurs Web. Jusque là ça va.
-                            Pour distribuer les messages on a besoin d’un serveur. Le serveur et les clients communiquent de la façon
-                            suivante
+                                Le principe d’une WebSocket, comme son nom l’indique c’est une connexion par socket (tunnel) qui est utilisé
+                                par les navigateurs Web.
                             </p>
                             <p>
-                            Le serveur et le client s’échange des amabilités via des headers HTTP histoire de se connaître l’un l’autre
-                            et après les communications peuvent vivre dans les 2 sens jusqu’à ce que l’un des 2 coupe la connexion.
-                            Donc concrètement, le client va venir s’abonner à un serveur et lui envoyer des messages et recevoir des
-                            messages depuis d’autres clients ou depuis le serveur lui même. On peut très bien envisager un scheduler
-                            qui envoie un statut particulier à tous les clients toutes les 5 secondes par exemple.
+                                Le serveur et le client s’échange des amabilités via des headers HTTP
+                                et après les communications peuvent vivre dans les 2 sens jusqu’à ce que l’un des 2 coupe la connexion.
+                            </p>
+                            <p>
+                                Donc concrètement, le client va venir s’abonner à un serveur et lui envoyer des messages et recevoir des
+                                messages depuis d’autres clients ou depuis le serveur lui même.
                             </p>
                         </div>
                     </aside>
@@ -248,7 +252,7 @@
                         <thead>
                             <tr>
                                 <th class="avantage">Avantages</th>
-                                <th>Inconvénients</th>
+                                <th class="inconvenient">Inconvénients</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -262,7 +266,7 @@
                             </tr>
                             <tr>
                                 <td class="avantage">Plus rapide que l'AJAX</td>
-                                <td class="inconvenient">Besoin de réfléchir à sa "stratégie" de communication</td>
+                                <td nclass="inconvenient">Besoin de réfléchir à sa "stratégie" de communication</td>
                             </tr>
                             <tr>
                                 <td class="avantage">Le serveur connait ses clients actifs</td>
@@ -274,17 +278,58 @@
                             </tr>
                         </tbody>
                     </table>
-                </section>
 
-                <aside class="notes">
-                    <div style="font-size : 20px;">
-                        <p>Plus rapide que l'AJAX : pas d'entete HTTP, proche d'une communication TCP (sauf la connexion = HTTP)</p>
-                        <p>Qui dit serveur dit maintenance du serveur</p>
-                        <p>
-                            Bon, on a notre socle technologique alors maintenant, allons-y !
-                        </p>
-                    </div>
-                </aside>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <table style="border-collapse : collapse;">
+                                <thead>
+                                    <tr>
+                                        <th class="avantage" style="border-bottom : 1px solid black;">Avantages</th>
+                                        <th class="inconvenient" style="border-bottom : 1px solid black;">Inconvénients</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="avantage" style="border-bottom : 1px solid black;">
+                                            Implémenté par la plupart des navigateurs
+                                        </td>
+                                        <td class="inconvenient" style="border-bottom : 1px solid black;">
+                                            Donc pas de Promise par exemple
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="avantage" style="border-bottom : 1px solid black;">
+
+                                        </td>
+                                        <td class="inconvenient" style="border-bottom : 1px solid black;">
+                                            Qui dit serveur dit maintenance du serveur, gestion de la charge, etc.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="avantage" style="border-bottom : 1px solid black;">
+                                            Proche d'une communication TCP (sauf la connexion = HTTP)
+                                        </td>
+                                        <td class="inconvenient" style="border-bottom : 1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="avantage" style="border-bottom : 1px solid black;">
+                                            Contrairement à l'AJAX, on sait qui est connecté
+                                        </td>
+                                        <td class="inconvenient" style="border-bottom : 1px solid black;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="avantage" style="border-bottom : 1px solid black;"></td>
+                                        <td class="inconvenient" style="border-bottom : 1px solid black;">
+                                            Même si on sait maintenant que Chrome a 60% de parts de marché,
+                                            il se peut selon le projet qu'on ait besoin d'étendre l'utilisation à
+                                            des navigateurs non compatibles (IE < 10)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </aside>
+                </section>
             </section>
 
             <section>
@@ -338,18 +383,7 @@ socket.onopen = (event) => {
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            <p>
-                                L’API WebSocket a quand même un gros défaut selon moi : elle permet uniquement d’envoyer un
-                                message sous forme de chaîne de caractères (ou un objet JSON stringifié) au serveur sur lequel on est
-                                connecté, sans différenciation de type de message ou de finalité. Du coup, pour différencier le type
-                                d’action qu’on effectuer, on se retrouve soit à créer n connexions à n instances de serveur (impensable),
-                                soit à devoir coder une classe Message qui contient le type d’action afin de pouvoir trier avec un switch
-                                ce qui n’est pas très élégant.
-                            </p>
-                            <p>
-                                Mais comme je ne suis pas le seul à me dire ça, une librairie est sortie en 2015, elle s’appelle
-                                SockJS et permet d’envoyer un message sur un topic
-                            </p>
+
                         </div>
                     </aside>
                 </section>
@@ -359,45 +393,49 @@ socket.onopen = (event) => {
 
                     <div>
                         <div id="websocket_switch__client">
-                            <h2>Émetteur</h2>
-                            <pre><code class="hljs" data-trim contenteditable>websocket.send(JSON.stringify({
+                            <h2>Client JS (émetteur)</h2>
+                            <pre><code class="hljs" data-trim contenteditable>
+const message = JSON.stringify({
     type: "message",
     value: "Hello World!"
-}));
+});
+
+websocket.send(message);
                             </code></pre>
-                            <h2>Récepteur</h2>
+                            <h2>Client JS (récepteur)</h2>
                             <pre><code class="hljs" data-trim contenteditable>socket.onopen = (event) => {
   this.onmessage = (e) => {
     const data = JSON.parse(e.data);
+
     switch (data.type) {
       case "message" :
         // Do something
-        break;
+      case "nextStep" :
+        // Do something
       [...]
     }
   };
-
-  this.send("Hello world!");
 };
                             </code></pre>
                         </div>
                         <div id="websocket_switch__serveur">
-                            <h2>Serveur (NodeJS)</h2>
-                            <pre><code class="hljs" data-trim contenteditable>server.on("data", (client, dataString) => {
-  const data = JSON.parse(dataString);
-
-  switch (data.type) {
-     case "message" :
-        // Do something
-        break;
-     case "nextStep" :
-        // Do something
-        break;
-     [...]
-  }
-});
+                            <h2>Serveur PHP</h2>
+                            <pre><code class="hljs" data-trim contenteditable>
+protected function process($user, $json_message) {
+    try {
+        $json_obj = json_decode_utf8($json_message);
+        switch ($json_obj->type) {
+            case "message" :
+                // Do something
+            case "nextStep" :
+                // Do something
+        }
+    }
+}
                             </code></pre>
-                            <pre class="fragment"><code class="hljs" data-trim contenteditable>const callbacks = [];
+
+                            <h2>Serveur NodeJS</h2>
+                            <pre><code class="hljs" data-trim contenteditable>const callbacks = [];
 callbacks["message"] = messageCallbackFunction;
 callbacks["nextStep"] = nextStepCallbackFunction;
 
@@ -408,6 +446,24 @@ server.on("data", (client, dataString) => {
                             </code></pre>
                         </div>
                     </div>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Là on est sur un gros défaut de l’API WebSocket selon moi : elle permet uniquement d’envoyer un
+                                message sous forme de chaîne de caractères (ou un objet JSON stringifié) au serveur sur lequel on est
+                                connecté, sans différenciation de type de message ou de finalité. Du coup, pour différencier le type
+                                d’action qu’on doit effectuer, on se retrouve
+                                soit à créer N connexions à N instances de serveur qui gèrent chacun une tâche particulière (impensable),
+                                soit à devoir coder une classe Message qui contient le type d’action afin de pouvoir trier avec un switch
+                                ce qui n’est pas très élégant.
+                            </p>
+                            <p>
+                                Heureusement, je ne suis pas le seul à m'être dit ça, et il y a un certain nombre de librairies JS
+                                qui sont sorties en ce sens, l'une des plus connues étant Socket.io
+                            </p>
+                        </div>
+                    </aside>
                 </section>
 
                 <section id="socketio_methods">
@@ -423,7 +479,12 @@ server.on("data", (client, dataString) => {
                     </ul>
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            S'interface plus facilement avec le serveur. Par exemple, Node a un module SocketIO qui permet de faire un serveur très rapidement.
+                            <p>La version 1.0.0 est sortie en 2014</p>
+                            <p>Librairie utilisée par Slack</p>
+                            <p>
+                                S'interface plus facilement avec le serveur.
+                                Par exemple, Node a un module SocketIO qui permet de faire un serveur très rapidement.
+                            </p>
                         </div>
                     </aside>
                 </section>
@@ -432,11 +493,11 @@ server.on("data", (client, dataString) => {
                     <h1>Socket IO</h1>
                     <p>Navigateurs compatibles</p>
                     <ul>
-                        <li>Internet Explorer 5.5+</li>
-                        <li>Safari 3+</li>
-                        <li>Google Chrome 4+</li>
-                        <li>Firefox 3+</li>
-                        <li>Opera 10.61+</li>
+                        <li>Internet Explorer 5.5+ (1999)</li>
+                        <li>Safari 3+ (2007)</li>
+                        <li>Firefox 3+ (2008)</li>
+                        <li>Google Chrome 4+ (2010)</li>
+                        <li>Opera 10.61+ (2010)</li>
                         <li>Safari sur iPhone et iPad</li>
                         <li>Le navigateur Android</li>
                     </ul>
@@ -460,6 +521,16 @@ server.on("data", (client, dataString) => {
 </script>
                     </code></pre>
                 </section>
+
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <p>
+                            Inconvénient : on réutilise le protocole HTTP pour ajouter des metadatas :
+                            le type de paquet, le namespace et un id de message. Les clients WebSockets
+                            natifs ne peuvent pas se connecter à un serveur Socket IO
+                        </p>
+                    </div>
+                </aside>
             </section>
 
             <section>
@@ -483,6 +554,20 @@ Worker::runAll();
                 </code></pre>
 
                 <pre><code class="hljs" data-trim contenteditable>php server.php start</code></pre>
+
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <p>Côté PHP nous avons 2 méthodes :.</p>
+                        <ul>
+                            <li>Emit qui envoie un message à l'émetteur</li>
+                            <li>Broadcast qui envoie un message à tout le monde SAUF l'émetteur</li>
+                        </ul>
+                        <p>
+                            Sur Node.js, il y a une méthode supplémentaire <code>"io.sockets.emit"</code>
+                            qui envoie à tout le monde y compris l'émetteur
+                        </p>
+                    </div>
+                </aside>
             </section>
 
 
@@ -527,12 +612,12 @@ Worker::runAll();
                     </div>
                 </div>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <p>Problématique : côté régie, je veux également faire des choses : ajouter la classe CSS, masquer un bouton, etc.</p>
-                            <p>Et je veux m'assurer que les interfaces sont toujours bien synchronisées</p>
-                        </div>
-                    </aside>
+                <aside class="notes">
+                    <div style="font-size : 20px;">
+                        <p>Problématique : côté régie, je veux également faire des choses : ajouter la classe CSS, masquer un bouton, etc.</p>
+                        <p>Et je veux m'assurer que les interfaces sont toujours bien synchronisées</p>
+                    </div>
+                </aside>
             </section>
 
             <section>
@@ -863,7 +948,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 <script src="/path/to/stomp.js"></script>
 
 const socket = new SockJS('http://localhost/my-websocket-app');
-stompClient = Stomp.over(socket);
+const stompClient = Stomp.over(socket);
 stompClient.connect({}, frame => {
     console.log('Connected: ' + frame);
 
@@ -897,13 +982,8 @@ stompClient.connect({}, frame => {
                     <aside class="notes">
                         <div style="font-size : 20px;">
                             <p>
-                                Les topics SockJS sont gérées par annotation via une dépendance Spring. Spring Boot a une dépendance
-                                exprès pour la communication WebSocket via SockJS. On a juste à ajouter ces 2 annotations et on a une
-                                communication directe WebSocket ce qui rend le code beaucoup plus lisible.
-                            </p>
-                            <p>
-                                Spring intègre bien évidemment l’API native WebSocket via la dépendance [...] . En tous cas pou notre
-                                exemple, on va rester sur SockJS
+                                Spring peut communiquer avec l’API native WebSocket via Stomp (sans SockJS).
+                                Pour notre exemple, on va rester sur SockJS
                             </p>
                         </div>
                     </aside>
@@ -943,7 +1023,7 @@ public String processMessageFromClient(@Payload String message,
 }
                     </code></pre>
                     <pre><code class="hljs" data-trim contenteditable>
-stompClient.send("/app/user/[myUserName]/message", {}, "message");
+stompClient.send("/app/user/[myUserId]/message", {}, "message");
                     </code></pre>
                 </section>
 
@@ -953,13 +1033,13 @@ stompClient.send("/app/user/[myUserName]/message", {}, "message");
 
                     <pre><code class="hljs" data-trim contenteditable>
 @MessageExceptionHandler
-@SendToUser("/queue/errors")
+@SendTo("/topic/errors")
 public String handleException(Throwable exception) {
     return exception.getMessage();
 }
                     </code></pre>
                     <pre><code class="hljs" data-trim contenteditable>
-ws.subscribe("/user/queue/reply", message => {
+ws.subscribe("/topic/errors", message => {
     alert("Message " + message.body);
 });
                     </code></pre>
@@ -976,7 +1056,7 @@ private SimpMessagingTemplate msgTemplate;
 @MessageMapping("/chats")
 public void handleChat(@Payload ChatMessage message) {
     this.msgTemplate.convertAndSend("/queue/chats-" + myCustomIdentifier,
-                        "[" + getTimestamp() + "]:" + message.getMessage());
+                        message.getMessage());
 }
 
 @Schedule(cron="0 0 * * * *")
@@ -984,14 +1064,14 @@ public void spam() {
     this.msgTemplate.convertAndSend("/queue/all-chats", "Abonnez-vous !!!");
 }
                     </code></pre>
-                </section>
 
-
-                <section>
-                    <h1>TODO</h1>
-                    <ul>
-                        <li>Rechercher comment faire du natif WS avec Spring</li>
-                    </ul>
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Cron expression = toutes les heures
+                            </p>
+                        </div>
+                    </aside>
                 </section>
             </section>
 

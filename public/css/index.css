@@ -3,8 +3,7 @@ h2 { font-size : 45px !important; }
 
 @import url(../reveal/lib/font/source-sans-pro/source-sans-pro.css);
 body  {
-    background : url('../images/bg_ProxiAD.png') left top no-repeat,
-    radial-gradient(ellipse at center, #eeeeee 0%,#ffffff 0%,#dbdbdb 100%);
+    background : url('../images/bg_ProxiAD.png') left top no-repeat;
 
     position : absolute;
     height : 100%;
