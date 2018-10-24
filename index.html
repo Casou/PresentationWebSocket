@@ -45,7 +45,7 @@
 
                 <aside class="notes">
                     <div style="font-size : 20px;">
-                        Présentation en mode retour d'expérience donc plutôt ordonné par ordre chronologique,
+                        Mode <b>Retour d'expérience</b> donc plutôt ordonné par ordre chronologique,
                         pourquoi j'ai choisi telle ou telle technologie, quels problèmes j'ai rencontré, etc.
                     </div>
                 </aside>
@@ -94,12 +94,8 @@
                 <aside class="notes">
                     <div style="font-size : 20px;">
                         <ul style="margin : 0; padding : 0;">
-                            <li>Président d’une asso d’impro (le GIT) dans laquelle je donne un coup de main de temps en temps</li>
-                            <li>Ils lançaient à ce moment un nouveau concept : l’impro diapo.</li>
-                            <li>Ils peuvent ou non avoir un contexte imposé ou une contrainte comme par exemple reproduire à l’identique le cliché projeté à un moment de l’impro.</li>
-                            <li>Concept créé il y a 2 ans à peu près mais il leur manquait cruellement un outil fiable et facile à utiliser.</li>
+                            <li>Il leur manquait un outil fiable</li>
                             <li>Il ne connaissait pas l’effet « démo ».</li>
-                            <li>Plein de liens morts, photos qui se chargeaient au ralenti, réactivité très moyenne, plein de petits détails inesthétiques comme la souris qui se baladent sur le projecteur par exemple ou le mec derrière l’ordinateur qui crie « Merde ça marche pas ».</li>
                         </ul>
                     </div>
                 </aside>
@@ -436,17 +432,6 @@ protected function process($user, $json_message) {
     }
 }
                             </code></pre>
-
-                            <h2>Serveur NodeJS</h2>
-                            <pre><code class="hljs" data-trim contenteditable>const callbacks = [];
-callbacks["message"] = messageCallbackFunction;
-callbacks["nextStep"] = nextStepCallbackFunction;
-
-server.on("data", (client, dataString) => {
-  const data = JSON.parse(dataString);
-  callbacks[data.type](data.value);
-});
-                            </code></pre>
                         </div>
                     </div>
 
@@ -590,7 +575,8 @@ const selectPicture = (idPicture) =>
                         <pre><code class="hljs" data-trim contenteditable>const socket = io.connect('http://localhost:2021');
 
 socket.on('selectPicture', jsonData => {
-    document.getElementById(`#picture_${ jsonData.id }`)
+        document.
+                            ById(`picture_${ jsonData.id }`)
             .classList.add("selected");
 });
                         </code></pre>
@@ -899,17 +885,17 @@ Worker::runAll();
                     <pre><code class="hljs" data-trim contenteditable>
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/my-websocket-app").withSockJS();
+    }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/app");
         config.enableSimpleBroker("/topic");
-    }
-
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/my-websocket-app").withSockJS();
     }
 
 }
@@ -997,7 +983,7 @@ stompClient.connect({}, frame => {
                     <pre><code class="hljs" data-trim contenteditable>
 stompClient.subscribe('/topic/selectPicture', jsonData => {
     const pictureId = JSON.parse(jsonData.body).id;
-    document.getElementById('#picture_${ pictureId }")
+    document.getElementById('picture_${ pictureId }")
             .classList.add("selected");
 });
 
