@@ -45,7 +45,8 @@
 
                 <aside class="notes">
                     <div style="font-size : 20px;">
-                        Présentation en mode retour d'expérience
+                        Présentation en mode retour d'expérience donc plutôt ordonné par ordre chronologique,
+                        pourquoi j'ai choisi telle ou telle technologie, quels problèmes j'ai rencontré, etc.
                     </div>
                 </aside>
             </section>
@@ -340,24 +341,29 @@
                             <tr>
                                 <th>Méthodes</th>
                                 <th>Événements</th>
-                                </tr>
+                                <th>Attributs</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>void send()</td>
                                 <td>onOpen</td>
+                                <td>readyState</td>
                             </tr>
                             <tr>
                                 <td>void close()</td>
                                 <td>onMessage</td>
+                                <td>url</td>
                             </tr>
                             <tr>
                                 <td> </td>
                                 <td>onError</td>
+                                <td>protocole</td>
                             </tr>
                             <tr>
                                 <td> </td>
                                 <td>onClose</td>
+                                <td>...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -365,25 +371,22 @@
                     <pre><code class="hljs" data-trim contenteditable>
 let socket = null;
 try {
-    socket = new WebSocket("ws://localhost");
+    socket = new WebSocket("ws://localhost", "protocoleOne");
 } catch (exception) {
     console.error(exception);
 }
 
+socket.onopen = (event) => { socket.send("Hello world!"); };
+socket.onmessage = (event) => { console.log("Message:", event.data); };
 socket.onerror = (error) => { console.error(error); };
-socket.onopen = (event) => {
-    console.log("Connexion établie.");
-
-    this.onclose = (event) => { console.log("Connexion terminé."); };
-    this.onmessage = (event) => { console.log("Message:", event.data); };
-
-    this.send("Hello world!");
-};
+socket.onclose = (event) => { console.log("Connexion terminé."); };
                         </code></pre>
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
-
+                            <p>readyState = CONNECTING, OPEN, CLOSING, CLOSED</p>
+                            <p>Protocolee : sous-protocoles négociés avec le serveur</p>
+                            <p>Attributs : binaryType, bufferedAmount et extensions</p>
                         </div>
                     </aside>
                 </section>
@@ -403,18 +406,18 @@ const message = JSON.stringify({
 websocket.send(message);
                             </code></pre>
                             <h2>Client JS (récepteur)</h2>
-                            <pre><code class="hljs" data-trim contenteditable>socket.onopen = (event) => {
-  this.onmessage = (e) => {
-    const data = JSON.parse(e.data);
+                            <pre><code class="hljs" data-trim contenteditable>
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
 
     switch (data.type) {
-      case "message" :
-        // Do something
-      case "nextStep" :
-        // Do something
-      [...]
+        case "message" :
+            // Do something
+        case "nextStep" :
+            // Do something
+        [...]
     }
-  };
+
 };
                             </code></pre>
                         </div>
@@ -828,6 +831,10 @@ Worker::runAll();
                             <p>ça me bloquait sur mes idées d’évolutions : pas de possibilité d’appareil tierce et moins
                                 d’intérêt à l’héberger sur un Raspberry car il faudra toujours un clavier et une souris.
                             </p>
+                            <p>
+                                Et puis PHP quoi ! J’en fais de moins en moins et surtout, je n’ai plus envie d’en faire donc assurer la
+                                maintenance et les évolutions allait être de plus en plus compliqué.
+                            </p>
                         </div>
                     </aside>
 
@@ -838,10 +845,7 @@ Worker::runAll();
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            <p>
-                                Et puis PHP quoi ! J’en fais de moins en moins et surtout, je n’ai plus envie d’en faire donc assurer la
-                                maintenance et les évolutions allait être de plus en plus compliqué.
-                            </p>
+
                         </div>
                     </aside>
                 </section>
@@ -854,8 +858,8 @@ Worker::runAll();
                 <aside class="notes">
                     <div style="font-size : 20px;">
                         <p>On efface tout et on recommence.</p>
-                        <p>Je voulais repartir sur du Java mais ce qui m'embétait c'était de faire installer un serveur Apache + un serveur Mysql
-                            aix utilisateurs tout en étant sûr des paramétrages installés (le driver, le port, tout ça).</p>
+                        <p>Repartir sur du Java mais installer un serveur Apache + un serveur Mysql
+                            tout en étant sûr des paramétrages installés (le driver, le port, tout ça).</p>
                         <p>Un de mes collègue m'a dit : pourquoi tu ne pars pas sur Spring Boot ?</p>
                     </div>
                 </aside>
@@ -874,19 +878,17 @@ Worker::runAll();
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            Donc côté client, on repart sur des WebSockets et côté Back, du Java ça m’arrangerait bien mais
-                            installation de Java, du serveur Tomcat, de la BDD, ça fait beaucoup. Et là je découvre quelque chose de
-                            magique : Spring Boot. Alors c’est pas hyper nouveau, cla v1 est sortie en 2014 mais ça résoud tous mes
-                            problèmes de simplicité de déploiement. L’archive JAR embarque un serveur Tomcat, pour la BDD,
-                            j’embarque une bdd H2 de type file et le tour est joué. Tout ce qu’il y a à installer sur le poste utilisateur
-                            c’est Java 8, ce qui est assez simple.
+                            <p>V1 sortie en 2014</p>
+                            <p>ça résoud tous mes problèmes de simplicité de déploiement. L’archive JAR embarque un serveur Tomcat, </p>
+                            <p>Pour la BDD j’embarque une bdd H2 de type file et le tour est joué.</p>
+                            <p>Tout ce qu’il y a à installer sur le poste utilisateur c’est Java 8, ce qui est assez simple.</p>
                         </div>
                     </aside>
                 </section>
 
                 <section id="sockjs__java__config">
-                    <h1>Sock JS + Stomp</h1>
-                    <h2>Configuration Java</h2>
+                    <h1>Spring Boot</h1>
+                    <h2>Configuration WS</h2>
 
                     <pre><code class="hljs" data-trim contenteditable>
 <dependency>
@@ -901,8 +903,8 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
         config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic");
     }
 
     @Override
@@ -929,9 +931,8 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
                 </section>
 
                 <section id="sockjs__js">
-                    <h1>Sock JS + Stomp</h1>
-                    <h2>Configuration JS</h2>
-                    <h2>TODO : Qu'est-ce que Stomp exactement (résoud les pbs d'encodage ?)</h2>
+                    <h1>Javascript</h1>
+                    <h2>Stomp + Sock JS</h2>
 
                     <pre><code class="hljs" data-trim contenteditable>
 <script src="/path/to/sockjs.js"></script>
@@ -939,6 +940,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
 const socket = new SockJS('http://localhost/my-websocket-app');
 const stompClient = Stomp.over(socket);
+
 stompClient.connect({}, frame => {
     console.log('Connected: ' + frame);
 
@@ -946,11 +948,20 @@ stompClient.connect({}, frame => {
     stompClient.send("/app/selectCategory", {}, JSON.stringify({'name' : 'toto'}));
 });
                     </code></pre>
+
+                    <aside class="notes">
+                        <div style="font-size : 20px;">
+                            <p>
+                                Stomp est une surcouche légère du protocole Websocket qui résoud quelques problèmes d'encodage
+                                et défini quelques méthodes supplémentaires. C'est le protocol que Spring prend en charge.
+                            </p>
+                        </div>
+                    </aside>
                 </section>
 
                 <section id="sockjs__java__controller">
-                    <h1>Sock JS + Stomp</h1>
-                    <h2>Controller WebSocket Java</h2>
+                    <h1>Spring Boot</h1>
+                    <h2>Controller WebSocket</h2>
 
                     <pre><code class="hljs" data-trim contenteditable>
     @MessageMapping("/selectPicture/{pictureId}")
@@ -980,8 +991,8 @@ stompClient.connect({}, frame => {
                 </section>
 
                 <section id="sockjs__js__callback">
-                    <h1>Sock JS + Stomp</h1>
-                    <h2>Callbacks JS</h2>
+                    <h1>Javascript</h1>
+                    <h2>Callbacks</h2>
 
                     <pre><code class="hljs" data-trim contenteditable>
 stompClient.subscribe('/topic/selectPicture', jsonData => {
@@ -1005,10 +1016,11 @@ stompClient.subscribe('/topic/selectCategory', categoryDto => {
                     <pre><code class="hljs" data-trim contenteditable>
 @MessageMapping("/message")
 @SendToUser("/queue/reply")
-public String processMessageFromClient(@Payload String message,
-                                       Principal principal) throws Exception {
+public ChatMessage processMessageFromClient(
+                        ChatMessage message,
+                        Principal principal) throws Exception {
 
-    return gson.fromJson(message, Map.class).get("name").toString();
+    return message;
 
 }
                     </code></pre>
