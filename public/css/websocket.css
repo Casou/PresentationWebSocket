@@ -58,8 +58,9 @@
 }
 
 #websocket_switch {
-    width: 1200px;
-    margin-left: -125px;
+    width: 1000px;
+    margin-left: -25px;
+    font-size : 28px;
 }
 
 #websocket_switch h1 {
@@ -107,17 +108,18 @@
 }
 
 #code_example_php > div {
-    width: 1260px;
-    margin-left: -155px;
+    width: 1075px;
+    margin-left: -70px;
     display : inline-block;
 }
 
 #code_example_php > div > div {
     display : inline-block;
+    font-size : 27px;
 }
 
-#code_example_php__client { width : 660px }
-#code_example_php__server { width : 590px }
+#code_example_php__client { width : 575px }
+#code_example_php__server { width : 475px }
 
 #code_example_php__client__spectateur {
     margin-top : 23px;

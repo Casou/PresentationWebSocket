@@ -43,12 +43,6 @@
                     <source src="public/images/websocket_animation.mp4" type="video/mp4" />
                 </video>
 
-                <aside class="notes">
-                    <div style="font-size : 20px;">
-                        Mode <b>Retour d'expérience</b> donc plutôt ordonné par ordre chronologique,
-                        pourquoi j'ai choisi telle ou telle technologie, quels problèmes j'ai rencontré, etc.
-                    </div>
-                </aside>
             </section>
 
             <section id="presentation">
@@ -73,9 +67,6 @@
                         <div class="fragment"><img src="public/images/illustrations/demande-pote.png" /></div>
                     </div>
 
-                    <aside class="notes" data-markdown>
-
-                    </aside>
                 </section>
 
                 <section id="intro_pourquoi_2">
@@ -91,14 +82,6 @@
 
             <section id="projet_ppt">
                 <img src="public/images/illustrations/impro-diapo-ppt.jpg" />
-                <aside class="notes">
-                    <div style="font-size : 20px;">
-                        <ul style="margin : 0; padding : 0;">
-                            <li>Il leur manquait un outil fiable</li>
-                            <li>Il ne connaissait pas l’effet « démo ».</li>
-                        </ul>
-                    </div>
-                </aside>
             </section>
 
             <section id="scene_impro">
@@ -119,11 +102,6 @@
                         <li>Facilement paramétrable (back-office)</li>
                         <li>Avoir un enchaînement précis d’écrans : <br/>intro, vidéo de présentation, liste des catégories, catégorie, remerciements, prochaines dates</li>
                     </ul>
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            A ces contraintes demandées par le « client » se sont rajoutées des contraintes que je me suis moi même imposées
-                        </div>
-                    </aside>
                 </section>
 
                 <section id="projet_prerequis_supplémentaires">
@@ -138,18 +116,6 @@
                             </ul>
                         </li>
                     </ul>
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <ul style="margin : 0; padding : 0;">
-                                <li>En cas d’imprévu (perte de connexion, portable qui plante), il faut que les sessions soient conservées
-                                    pour qu’on ait pas à recommencer l’impro du début (faire défiler les séquences, etc.)</li>
-                                <li>il faut que l’application soit facilement déployable sur n’importe quel PC portable Windows (sans l’aide
-                                    d’un informaticien, avec juste une notice d’installation simple)</li>
-                                <li>Et puis j’avais quelques idées d’évolutions aussi : héberger tout le nécessaire sur un Raspberry pour
-                                    n’avoir aucune installation à faire, donner une tablette au présentateur pour qu’il dirige tout, etc.</li>
-                            </ul>
-                        </div>
-                    </aside>
                 </section>
             </section>
 
@@ -169,12 +135,6 @@
                         <img src="public/images/icon_mysql.png" />
                     </div>
                 </main>
-                <aside class="notes">
-                    <div style="font-size : 20px;">
-                        PHP ça tourne partout. En terme de déploiement, on installe WAMP et hop, c’est fini.
-                        ...enfin sur le principe. Ca, on y reviendra.
-                    </div>
-                </aside>
             </section>
 
             <section>
@@ -185,10 +145,6 @@
                     <main>
                         <img src="public/images/ajax_polling.gif" />
                     </main>
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                        </div>
-                    </aside>
                 </section>
 
 
@@ -199,22 +155,6 @@
                     <main>
                         <img src="public/images/websockets-diagram.png" />
                     </main>
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <p>
-                                Le principe d’une WebSocket, comme son nom l’indique c’est une connexion par socket (tunnel) qui est utilisé
-                                par les navigateurs Web.
-                            </p>
-                            <p>
-                                Le serveur et le client s’échange des amabilités via des headers HTTP
-                                et après les communications peuvent vivre dans les 2 sens jusqu’à ce que l’un des 2 coupe la connexion.
-                            </p>
-                            <p>
-                                Donc concrètement, le client va venir s’abonner à un serveur et lui envoyer des messages et recevoir des
-                                messages depuis d’autres clients ou depuis le serveur lui même.
-                            </p>
-                        </div>
-                    </aside>
                 </section>
 
 
@@ -235,10 +175,6 @@
                             <li><figure><img src="public/images/logos/blackberry.png" /></figure><span>Blackberry 7 + (2012)</span></li>
                         </ul>
                     </main>
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                        </div>
-                    </aside>
                 </section>
 
                 <section id="communication_pro_cons">
@@ -381,8 +317,8 @@ socket.onclose = (event) => { console.log("Connexion terminé."); };
                     <aside class="notes">
                         <div style="font-size : 20px;">
                             <p>readyState = CONNECTING, OPEN, CLOSING, CLOSED</p>
-                            <p>Protocolee : sous-protocoles négociés avec le serveur</p>
-                            <p>Attributs : binaryType, bufferedAmount et extensions</p>
+                            <p>"protocoleOne" : sous-protocoles négociés avec le serveur</p>
+                            <p>Attributs supplémentaires : binaryType, bufferedAmount et extensions</p>
                         </div>
                     </aside>
                 </section>
@@ -438,17 +374,13 @@ protected function process($user, $json_message) {
                     <aside class="notes">
                         <div style="font-size : 20px;">
                             <p>
-                                Là on est sur un gros défaut de l’API WebSocket selon moi : elle permet uniquement d’envoyer un
-                                message sous forme de chaîne de caractères (ou un objet JSON stringifié) au serveur sur lequel on est
-                                connecté, sans différenciation de type de message ou de finalité. Du coup, pour différencier le type
-                                d’action qu’on doit effectuer, on se retrouve
-                                soit à créer N connexions à N instances de serveur qui gèrent chacun une tâche particulière (impensable),
-                                soit à devoir coder une classe Message qui contient le type d’action afin de pouvoir trier avec un switch
-                                ce qui n’est pas très élégant.
-                            </p>
-                            <p>
-                                Heureusement, je ne suis pas le seul à m'être dit ça, et il y a un certain nombre de librairies JS
-                                qui sont sorties en ce sens, l'une des plus connues étant Socket.io
+                                Gros défaut de l’API WebSocket : permet uniquement d’envoyer un message sous forme de chaîne de caractères
+                                (ou un objet JSON stringifié) sans différenciation de type de message ou de finalité.
+                                Du coup, pour différencier le type d’action  :
+                                <ul>
+                                    <li>soit créer N connexions à N instances de serveur (impensable)</li>
+                                    <li>soit coder une classe Message qui contient le type d’action afin de pouvoir trier avec un switch</li>
+                                </ul>
                             </p>
                         </div>
                     </aside>
@@ -515,7 +447,7 @@ protected function process($user, $json_message) {
                         <p>
                             Inconvénient : on réutilise le protocole HTTP pour ajouter des metadatas :
                             le type de paquet, le namespace et un id de message. Les clients WebSockets
-                            natifs ne peuvent pas se connecter à un serveur Socket IO
+                            natifs ne peuvent pas se connecter à un serveur Socket IO.
                         </p>
                     </div>
                 </aside>
@@ -545,7 +477,7 @@ Worker::runAll();
 
                 <aside class="notes">
                     <div style="font-size : 20px;">
-                        <p>Côté PHP nous avons 2 méthodes :.</p>
+                        <p>Côté PHP 2 méthodes :.</p>
                         <ul>
                             <li>Emit qui envoie un message à l'émetteur</li>
                             <li>Broadcast qui envoie un message à tout le monde SAUF l'émetteur</li>
@@ -575,8 +507,7 @@ const selectPicture = (idPicture) =>
                         <pre><code class="hljs" data-trim contenteditable>const socket = io.connect('http://localhost:2021');
 
 socket.on('selectPicture', jsonData => {
-        document.
-                            ById(`picture_${ jsonData.id }`)
+        document.getElementById(`picture_${ jsonData.id }`)
             .classList.add("selected");
 });
                         </code></pre>
@@ -600,13 +531,6 @@ Worker::runAll();
                         </code></pre>
                     </div>
                 </div>
-
-                <aside class="notes">
-                    <div style="font-size : 20px;">
-                        <p>Problématique : côté régie, je veux également faire des choses : ajouter la classe CSS, masquer un bouton, etc.</p>
-                        <p>Et je veux m'assurer que les interfaces sont toujours bien synchronisées</p>
-                    </div>
-                </aside>
             </section>
 
             <section>
@@ -620,11 +544,6 @@ Worker::runAll();
                         <img src="public/images/illustrations/synchronisation-1-step-3.png" class="fragment" />
                     </figure>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-
-                        </div>
-                    </aside>
                 </section>
 
                 <section id="synchronisation_2">
@@ -637,11 +556,6 @@ Worker::runAll();
                         <img src="public/images/illustrations/synchronisation-2-step-3.png" class="fragment" />
                     </figure>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-
-                        </div>
-                    </aside>
                 </section>
 
                 <section id="synchronisation_fail">
@@ -665,11 +579,6 @@ Worker::runAll();
                         </div>
                     </div>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-
-                        </div>
-                    </aside>
                 </section>
 
 
@@ -687,8 +596,8 @@ Worker::runAll();
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            Tout est OK quand ça se passe bien, mais si un message se perd, aucun moyen pour le client de le savoir.
-                            Obligé de faire un timeout pour chaque message
+                            Si un message se perd, aucun moyen pour le client de le savoir.
+                            Obligé de faire un timeout pour chaque message...
                         </div>
                     </aside>
                 </section>
@@ -704,16 +613,6 @@ Worker::runAll();
                         <img id="resultat_ok__application" class="fragment" src="public/images/visuels_application/application-ok.jpg" />
                     </figure>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <p>
-                                Pour la première, je suis en régie avec mon pote. Pendant la répétition je corrige quelques bugs mineurs
-                                (c'est toujours mieux de corriger sur la prod), mais pendant la représention, tout se passe bien.
-                            </p>
-                            <p>Donc le logiciel est validé et éprouvé... Mais on avait oublié de tenir compte de la loi de Murphy.</p>
-                            <p>Pour la deuxième représentation, je n'étais pas dispo... du coup...</p>
-                        </div>
-                    </aside>
                 </section>
 
 
@@ -725,17 +624,6 @@ Worker::runAll();
                         <img id="resultat_ko__ws_server" class="fragment" src="public/images/visuels_application/php-ws-server-error.jpg" />
                         <img id="resultat_ko__application" class="fragment" src="public/images/visuels_application/error-404.jpg" />
                     </figure>
-
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <p>Tous ceux qui ont développé sous WAMP ont peur de ça : le W orange.
-                                Quand on a de la chance, c'est juste Skype qu'il faut killer, mais sinon il faut fouiller un peu.
-                                Et quand on est sur TeamViewer sur un smartphone, ça devient vite compliqué...</p>
-                            <p>Autre problème : le serveur WS PHP n'est stable. Il y a des déconnexions, des messages foireux. En plus le PC rame</p>
-                            <p>Pour moi du coup les WebSockets sont un problème. Ce n'est pas stable (en tous cas au moins le serveur PHP)
-                                et puis ça fait 2 serveurs à démarrer donc pas le plus intuitif.chml</p>
-                        </div>
-                    </aside>
                 </section>
             </section>
 
@@ -772,11 +660,14 @@ Worker::runAll();
 
                     <aside class="notes">
                         <div style="font-size : 20px;">
-                            Avec les popups, s’il y a déconnexion (l'une des pages plante), il n’y a aucun moyen à ma connaissance pour récupérer cette
-                            connexion. Il faut fermer l’onglet fils et en ré-ouvrir un. Donc la solution que j’ai choisi est que l’onglet
-                            parent est l’onglet spectateur et que l’enfant et la régie. Si la régie (l’enfant) se retrouve déconnecté,
-                            j’affiche un gros message d’erreur, on s’en fout c’est la régie. Le manipulateur a donc juste à fermer
-                            l’onglet régie et en ouvrir un nouveau en appuyant sur la touche R et la connexion a été reprise.
+                            <p>
+                                Plus stable graphiquement car si la régie plante, on peut la rouvrir discrèetement
+                                sans perturber les spectateurs. Si le spectateur est l'enfant de la régie, alors
+                                on doit fermer l'onglet Spectateur, refresh la régie puis rouvrir le spectateur
+                            </p>
+                            <p>
+                                Si la connexion se perd avec la popup, aucun moyen de la retrouver.
+                            </p>
                         </div>
                     </aside>
                 </section>
@@ -817,10 +708,6 @@ Worker::runAll();
                             <p>ça me bloquait sur mes idées d’évolutions : pas de possibilité d’appareil tierce et moins
                                 d’intérêt à l’héberger sur un Raspberry car il faudra toujours un clavier et une souris.
                             </p>
-                            <p>
-                                Et puis PHP quoi ! J’en fais de moins en moins et surtout, je n’ai plus envie d’en faire donc assurer la
-                                maintenance et les évolutions allait être de plus en plus compliqué.
-                            </p>
                         </div>
                     </aside>
 
@@ -828,12 +715,6 @@ Worker::runAll();
 
                 <section id="solution_popup__mais">
                     <img src="public/images/php.jpg" />
-
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-
-                        </div>
-                    </aside>
                 </section>
 
             </section>
@@ -844,9 +725,8 @@ Worker::runAll();
                 <aside class="notes">
                     <div style="font-size : 20px;">
                         <p>On efface tout et on recommence.</p>
-                        <p>Repartir sur du Java mais installer un serveur Apache + un serveur Mysql
+                        <p>Repartir sur du Java mais problème : installer un serveur Apache + un serveur Mysql
                             tout en étant sûr des paramétrages installés (le driver, le port, tout ça).</p>
-                        <p>Un de mes collègue m'a dit : pourquoi tu ne pars pas sur Spring Boot ?</p>
                     </div>
                 </aside>
             </section>
@@ -866,7 +746,6 @@ Worker::runAll();
                         <div style="font-size : 20px;">
                             <p>V1 sortie en 2014</p>
                             <p>ça résoud tous mes problèmes de simplicité de déploiement. L’archive JAR embarque un serveur Tomcat, </p>
-                            <p>Pour la BDD j’embarque une bdd H2 de type file et le tour est joué.</p>
                             <p>Tout ce qu’il y a à installer sur le poste utilisateur c’est Java 8, ce qui est assez simple.</p>
                         </div>
                     </aside>
@@ -901,19 +780,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 }
                     </code></pre>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <p>
-                                Les topics SockJS sont gérées par annotation via une dépendance Spring. Spring Boot a une dépendance
-                                exprès pour la communication WebSocket via SockJS. On a juste à ajouter ces 2 annotations et on a une
-                                communication directe WebSocket ce qui rend le code beaucoup plus lisible.
-                            </p>
-                            <p>
-                                Spring intègre bien évidemment l’API native WebSocket via la dépendance [...] . En tous cas pou notre
-                                exemple, on va rester sur SockJS
-                            </p>
-                        </div>
-                    </aside>
                 </section>
 
                 <section id="sockjs__js">
@@ -966,14 +832,6 @@ stompClient.connect({}, frame => {
     }
                     </code></pre>
 
-                    <aside class="notes">
-                        <div style="font-size : 20px;">
-                            <p>
-                                Spring peut communiquer avec l’API native WebSocket via Stomp (sans SockJS).
-                                Pour notre exemple, on va rester sur SockJS
-                            </p>
-                        </div>
-                    </aside>
                 </section>
 
                 <section id="sockjs__js__callback">
@@ -1066,64 +924,6 @@ public void spam() {
 
             <section id="demo_gif">
                 <img src="public/images/demo_time.gif" />
-
-                <aside class="notes">
-                    <div style="font-size : 20px;">
-                        <p>Aller sur <code>start.spring.io</code> et cocher Web, Websocket et Lombok</p>
-                        <p>Unzip + copie de la partie client</p>
-
-                        <p>Paramètre de lancement : <b>VM options : -Dserver.port=9999</b></p>
-
-                        <div><b>client.js</b></div>
-                        <pre style="font-size : 14px;">
-const sock = new SockJS("/chat");
-const stomp = Stomp.over(sock);
-
-stomp.connect({}, subscribe);
-
-$("#submit_button").click(() => {
-    stomp.send("/message", {}, JSON.stringify({
-        userName : $("#input_userName").val(),
-        message : $("#input_message").val()
-    }));
-});
-
-function subscribe() {
-    stomp.subscribe("/topic/message", (response) => {
-        const content = JSON.parse(response.body);
-        $("#chat_content ul").append(
-            `&lt;li&gt;&lt;span class="userName"&gt;${ content.userName }&lt;/span&gt; : ${ content.message }&lt;/li&gt;`)
-    });
-}
-                        </pre>
-
-                        <div><b>WebsocketConfig.java</b></div>
-                        <pre style="font-size : 14px;">
-@Configuration
-@EnableWebSocketMessageBroker
-public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
-
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").withSockJS();
-    }
-}
-                        </pre>
-
-                        <div><b>WebsocketController.java</b></div>
-                        <pre style="font-size : 14px;">
-@Controller
-public class WebsocketController {
-
-    @MessageMapping("/message")
-    @SendTo("/topic/message")
-    public MessageDto broadcastMessage(MessageDto message) {
-        return message;
-    }
-}
-                        </pre>
-                    </div>
-                </aside>
             </section>
 
             <section id="merci">
